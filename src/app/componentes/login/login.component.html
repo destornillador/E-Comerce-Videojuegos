@@ -1,0 +1,49 @@
+<mat-card>
+            <mat-card-title>Inciar Sesión</mat-card-title>
+      <mat-card-content>
+        <form [formGroup]="loginForm">
+          <p>
+            <mat-form-field>
+              <input type="text" matInput [(ngModel)]="username" placeholder="Ingrese Usuario" formControlName="usuario" required>
+              <mat-error *ngIf="formErrors.usuario">{{formErrors.usuario}}</mat-error>
+            </mat-form-field>
+          </p>
+
+          <p>
+            <mat-form-field>
+              <input type="password" matInput [(ngModel)]="password" placeholder="Ingrese Contraseña" formControlName="contrasenia" required>
+              <mat-error *ngIf="formErrors.contrasenia">{{formErrors.contrasenia}}</mat-error>
+            </mat-form-field>
+          </p>
+
+          <div class="button">
+            <!--<button type="submit" mat-button>Inciar Sesión</button>-->
+            <button mat-flat-button color="primary" (click)="logIn()">
+            Aceptar
+            </button>
+          </div>
+
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+
+<!--<div class="modal-dialog modal-dialog-centered" role="dialog"> 
+  <div class="modal-content">
+      <div class="modal-header d-flex justify-content-end">
+        <button mat-icon-button type="button" data-dismiss="modal" aria-label="Close" (click)="clickNo()">
+          <mat-icon aria-hidden="true">close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-body d-flex flex-column align-items-center">
+      <i class="gl-icon gl-mensaje_alerta fs-80 mb-3"></i>
+      <h4 class="text-bold">Cancelar operación</h4>
+      <h5>¿Querés cancelar la operación?</h5>
+      </div>
+      <div class="modal-footer justify-content-center mt-30">
+      <button mat-button (click)="clickNo()">No</button>
+      <button mat-button [mat-dialog-close]="true">Sí</button>
+      </div>
+      
+  </div>
+</div>-->

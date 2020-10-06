@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { JuegoService } from '../../servicios/juego.service';
-
+import { Router} from '@angular/router';
 import { MatDialog,MatDialogConfig } from "@angular/material/dialog";
 
 import { LoginComponent } from '../login/login.component';
@@ -13,14 +13,28 @@ import { RegistroComponent } from '../registro/registro.component';
 })
 export class PrincipalComponent implements OnInit {
 
-  constructor(public JuegoService : JuegoService, public dialog: MatDialog) { }
+  public juegos: any[];
+  public formato: string = "";
+  public genero: string = "";
+  public plataforma: string = "";
+  public orden: string = "";
+  public titulo: string = "";
+  constructor(public JuegoService : JuegoService, public dialog: MatDialog,public router:Router) { }
 
   ngOnInit() {
-    this.JuegoService.listarJuegosPromesa().then(
+    this.buscar();
+  }
+
+  buscar(){
+    this.JuegoService.listarJuegosPromesa(this.plataforma,this.genero,this.formato,this.titulo,this.orden).then(
       (datos) => {
-        console.log(datos);
+        this.juegos = datos;
       }
     );
+  }
+
+  Ir(id:string){
+    this.router.navigateByUrl("Juego/"+id);
   }
 
   AbrirModal(event: any) {

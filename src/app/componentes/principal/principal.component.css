@@ -1,0 +1,11 @@
+.mat-card{
+ width: 100%   
+}
+.mat-card-image {
+    height: 250px;
+}
+
+.filtros{
+    text-align: center;
+    background-color: blue; 
+}

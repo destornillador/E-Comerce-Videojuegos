@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
 import { PrincipalComponent } from '../componentes/principal/principal.component';
+import { JuegoDatosComponent } from '../componentes/juego-datos/juego-datos.component';
 import { ErrorComponent } from '../componentes/error/error.component';
 
 import {VerificarService} from '../servicios/verificar.service';
@@ -11,6 +12,7 @@ import {VerificarService} from '../servicios/verificar.service';
 const MiRuteo = [
 {path: '' , component: PrincipalComponent},
 {path: 'Principal' , component: PrincipalComponent},
+{path: 'Juego/:id' , component: JuegoDatosComponent},
 {path: '**' , component: ErrorComponent},
 {path: 'error' , component: ErrorComponent}]
 
@@ -20,7 +22,7 @@ const MiRuteo = [
     RouterModule.forRoot(MiRuteo)
   ],
   exports: [
-    RouterModule
+    RouterModule,
   ]
 })
 export class RuteoModule { }

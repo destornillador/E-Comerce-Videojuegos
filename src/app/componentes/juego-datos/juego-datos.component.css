@@ -1,0 +1,48 @@
+.mat-card{
+ width: 100%   
+}
+.mat-card-image {
+    height: 600px;
+}
+
+.flexbox-container {
+        display: -ms-flex;
+}
+
+.flexbox-container > div {
+        padding: 10px;
+}
+
+@media(min-width: 994px){
+    .datos {
+            padding-top: 30%;
+    }
+    .datos h1
+    {   
+        text-align: right;
+        font-size: 80px;
+        color: darkorange;
+    }
+    .datos button
+    {
+        background-color: darkorange;
+        color: white;
+        padding: 14px 40px;
+        width: 100%;
+    }
+}
+@media(max-width: 993px){
+    .datos h1
+    {
+        text-align: center;
+        font-size: 60px;
+        color: darkorange;
+    }
+    .datos button
+    {
+        background-color: darkorange;
+        color: white;
+        padding: 14px 40px;
+        width: 100%;
+    }
+}

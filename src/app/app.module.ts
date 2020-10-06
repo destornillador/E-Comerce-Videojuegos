@@ -15,14 +15,13 @@ import { ErrorComponent } from './componentes/error/error.component';
 import { MenuComponent } from './componentes/menu/menu.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { RegistroComponent } from './componentes/registro/registro.component';
+import { JuegoDatosComponent } from './componentes/juego-datos/juego-datos.component';
 
 //Servicios
 import {HttpService} from './servicios/http.service';
 import {JuegoService} from './servicios/juego.service';
 import {UsuarioService} from './servicios/usuario.service';
 import {VerificarService} from './servicios/verificar.service';
-
-
 
 @NgModule({
   entryComponents: [
@@ -35,7 +34,8 @@ import {VerificarService} from './servicios/verificar.service';
     ErrorComponent,
     MenuComponent,
     LoginComponent,
-    RegistroComponent
+    RegistroComponent,
+    JuegoDatosComponent
   ],
   imports: [
     BrowserModule,

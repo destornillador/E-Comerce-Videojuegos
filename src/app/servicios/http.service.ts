@@ -18,17 +18,29 @@ export class HttpService {
     return Promise.reject(error.message || error);
   }
 
-  buscarJuego(plataforma,genero,formato)
+  buscarJuego(plataforma,genero,formato,titulo,orden)
   { 
     const formData = new FormData();
     formData.append('plataforma',plataforma);
     formData.append('genero',genero);
     formData.append('formato',formato);
+    formData.append('titulo',titulo);
+    formData.append('orden',orden);
     let header = new HttpHeaders();
     header.append('Content-Type','application/json');
     //return this.http.post(url,paramString).toPromise().then(this.extractData).catch(this.handleError);
     return this.http.post(this.URl,formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
+  traerJuego(juegoId)
+  { 
+    const formData = new FormData();
+    formData.append('id',juegoId);
+    let header = new HttpHeaders();
+    header.append('Content-Type','application/json');
+    //return this.http.post(url,paramString).toPromise().then(this.extractData).catch(this.handleError);
+    return this.http.post(this.URl+"getJuego",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+  }
+
   buscarUsuario(url:string,usuario:string,clave:string)
   { 
     const formData = new FormData()
@@ -38,7 +50,6 @@ export class HttpService {
     header.append('Content-Type','application/json');
     return this.http.post(this.URl+"login",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
-
   entregarCliente(user:any)
   {
     //var param = {usuario:player.usuario,nombre:player.nombre,apellido:player.apellido,contrasenia:player.contrasenia,email:player.email};

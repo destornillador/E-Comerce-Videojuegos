@@ -1,1 +1,78 @@
 <app-menu (valor)="AbrirModal($event)"></app-menu>
+
+<!--Filtros-->
+<form class="container-fluid">
+  <div class="form-group row">
+    <label for="staticEmail" class="col-form-label">Consola: </label>
+    <div class="col">
+      <select [(ngModel)]="plataforma" name="plataforma" class="form-control">
+            <option value="">Todos</option>
+            <option value="1">Xbox One</option>
+            <option value="2">PS4</option>
+            <option value="3">Switch</option>
+        </select>
+    </div>
+    <label for="staticEmail" class="col-form-label">Formato: </label>
+    <div class="col">
+    <select [(ngModel)]="formato" name="formato" class="form-control">
+            <option value="">Todos</option>
+            <option value="1">Físico</option>
+            <option value="2">Digital</option>
+    </select>
+    </div>
+    <label for="staticEmail" class="col-form-label">Genero: </label>
+    <div class="col">
+        <select [(ngModel)]="genero" name="genero" class="form-control">
+            <option value="">Todos</option>
+            <option value="1">Shooter</option>
+            <option value="2">Plataformas</option>
+            <option value="3">RPG</option>
+            <option value="4">Carreras</option>
+            <option value="5">Peleas</option>
+        </select>
+    </div>
+    <label for="staticEmail" class="col-form-label">Ordenar por: </label>
+    <div class="col">
+        <select [(ngModel)]="orden" name="orden" class="form-control">
+            <option value="">Título</option>
+            <option value="1">De mayor a menor</option>
+            <option value="2">De menor a mayor</option>
+        </select>
+    </div>
+    <div class="col">
+        <div class="input-group md-form form-sm form-1 pl-0">
+            <div class="input-group-prepend">
+                <span class="input-group-text purple lighten-3" id="basic-text1"><i class="fa fa-fw fa-search"
+                    aria-hidden="true"></i></span>
+            </div>
+            <input class="form-control my-0 py-1" type="text" [(ngModel)]="titulo" name="titulo" placeholder="Buscar por Título" aria-label="Search">
+        </div>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-info " (click)="buscar()">Buscar</button>
+    </div>
+  </div>
+</form>
+
+<!--Catalogo-->
+<div class="container-fluid"> 
+    <div class="row" >
+        <div *ngFor="let juego of juegos" class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
+            <div class="py-1">
+                <mat-card (click)="Ir(juego.id)">
+                    <img mat-card-image src="assets/portadas/{{juego.foto}}" >
+                    <mat-card-content>
+                        <div class="row">
+                            <span class="col-9">{{juego.titulo}}</span>
+                            <span class="col-3">$ {{juego.precio}}</span>
+                        </div>
+                        <div class="row">
+                            <span class="col-6">{{juego.plataforma}}</span>
+                            <span class="col-6">{{juego.formato}}</span>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        <div>
+    </div>
+</div>

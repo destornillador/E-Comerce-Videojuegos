@@ -71,6 +71,7 @@ $app->add(function ($req, $res, $next) {
 
 $app->group('/ecomerce', function () {
       $this->post('/', \JuegoApi::class . ':TraerJuegos')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/getJuego', \JuegoApi::class . ':TraerJuego')->add(\MWparaCORS::class . ':HabilitarCORS8080');
       
       $this->post('/login',\UsuarioApi::class . ':traerUno')->add(\MWparaCORS::class . ':HabilitarCORSTodos');
       $this->post('/guardarCliente', \UsuarioApi::class . ':CargarUno')->add(\MWparaCORS::class . ':HabilitarCORS8080');

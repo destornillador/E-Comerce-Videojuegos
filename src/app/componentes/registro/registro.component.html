@@ -1,63 +1,67 @@
 <mat-card>
-            <mat-card-title>Registro de usuario</mat-card-title>
-      <mat-card-content>
-        <form [formGroup]="registroForm">
-          <mat-form-field>
-              <input type="text" matInput [(ngModel)]="username" placeholder="Ingrese nombre de usuario" formControlName="usuario" required>
-              <mat-error *ngIf="formErrors.usuario">{{formErrors.usuario}}</mat-error>
-            </mat-form-field>
-            <mat-form-field>
-              <input type="password" matInput [(ngModel)]="password" placeholder="Ingrese contraseña" formControlName="contrasenia" required>
-              <mat-error *ngIf="formErrors.contrasenia">{{formErrors.contrasenia}}</mat-error>
-            </mat-form-field>
-            <mat-form-field>
-              <input type="password" matInput [(ngModel)]="passwordCopia" placeholder="Repita contraseña" formControlName="contraseniaCopia" required>
-              <mat-error *ngIf="formErrors.contraseniaCopia">{{formErrors.contraseniaCopia}}</mat-error>
-            </mat-form-field>
-            <mat-form-field>
-              <input type="text" matInput [(ngModel)]="nombre" placeholder="Ingrese su nombre" formControlName="nombre" required>
-              <mat-error *ngIf="formErrors.nombre">{{formErrors.nombre}}</mat-error>
-            </mat-form-field>
-            <mat-form-field>
-              <input type="text" matInput [(ngModel)]="apellido" placeholder="Ingrese su apellido" formControlName="apellido" required>
-              <mat-error *ngIf="formErrors.apellido">{{formErrors.apellido}}</mat-error>
-            </mat-form-field>
-            <mat-form-field>
-                <mat-select placeholder="Seleccione sexo" [(ngModel)]="sexo" formControlName="sexo"
-                    required>
-                    <mat-option *ngFor="let sexo of sexos" [value]="sexo">
-                    {{sexo}}
-                    </mat-option>
-                </mat-select>
-                <mat-error *ngIf="formErrors.sexo">{{formErrors.sexo}}</mat-error>
-            </mat-form-field>
-            <mat-form-field>
-              <input type="email" matInput [(ngModel)]="email" placeholder="Ingrese su email" formControlName="email" required>
-              <mat-error *ngIf="formErrors.email">{{formErrors.email}}</mat-error>
-            </mat-form-field>
-            <mat-form-field>
-              <input type="number" matInput [(ngModel)]="telefono" maxlength="10" placeholder="Ingrese su telefono" formControlName="telefono" required>
-              <mat-error *ngIf="formErrors.telefono">{{formErrors.telefono}}</mat-error>
-            </mat-form-field>
-              <mat-form-field>
-                <input matInput [matDatepicker]="picker"
-                    placeholder="Ingrese fecha de nacimiento"
-                    formControlName="fechaNacimiento" [(ngModel)]="fechaNacimiento" required
-                    style="display:inline">
-                <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-                <mat-error *ngIf="formErrors.fechaNacimiento">
-                {{formErrors.fechaNacimiento}}
-            </mat-error>
-          </mat-form-field>
-          
-          <div class="button">
-            <!--<button type="submit" mat-button>Inciar Sesión</button>-->
-            <button mat-flat-button color="primary" (click)="registrar()">
-            Aceptar
-            </button>
-          </div>
+  <mat-card-title>Registro de usuario</mat-card-title>
+  <div class="radio" style="text-align: center">
+      <label class="radio-inline"><input  type="radio" (click)="actualizarTipo(2)" [checked]="tipo === 2" [value]="tipo" name="optradio"> Cliente</label>
+      <label class="radio-inline" style="margin-left: 10px"><input  (click)="actualizarTipo(3)" [checked]="tipo === 3" type="radio" [value]="tipo" name="optradio"> Empleado</label>
+  </div>
+  <mat-card-content>
+    <form [formGroup]="registroForm">
+      <mat-form-field>
+        <input type="text" matInput [(ngModel)]="username" placeholder="Ingrese nombre de usuario" formControlName="usuario" required>
+        <mat-error *ngIf="formErrors.usuario">{{formErrors.usuario}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input type="password" matInput [(ngModel)]="password" placeholder="Ingrese contraseña" formControlName="contrasenia" required>
+        <mat-error *ngIf="formErrors.contrasenia">{{formErrors.contrasenia}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input type="password" matInput [(ngModel)]="passwordCopia" placeholder="Repita contraseña" formControlName="contraseniaCopia" required>
+        <mat-error *ngIf="formErrors.contraseniaCopia">{{formErrors.contraseniaCopia}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input type="text" matInput [(ngModel)]="nombre" placeholder="Ingrese su nombre" formControlName="nombre" required>
+        <mat-error *ngIf="formErrors.nombre">{{formErrors.nombre}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input type="text" matInput [(ngModel)]="apellido" placeholder="Ingrese su apellido" formControlName="apellido" required>
+        <mat-error *ngIf="formErrors.apellido">{{formErrors.apellido}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="Seleccione sexo" [(ngModel)]="sexo" formControlName="sexo"
+        required>
+          <mat-option *ngFor="let sexo of sexos" [value]="sexo">
+          {{sexo}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="formErrors.sexo">{{formErrors.sexo}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input type="email" matInput [(ngModel)]="email" placeholder="Ingrese su email" formControlName="email" required>
+        <mat-error *ngIf="formErrors.email">{{formErrors.email}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input type="number" matInput [(ngModel)]="telefono" maxlength="10" placeholder="Ingrese su telefono" formControlName="telefono" required>
+        <mat-error *ngIf="formErrors.telefono">{{formErrors.telefono}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker"
+        placeholder="Ingrese fecha de nacimiento"
+        formControlName="fechaNacimiento" [(ngModel)]="fechaNacimiento" required
+        style="display:inline">
+        <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="formErrors.fechaNacimiento">
+        {{formErrors.fechaNacimiento}}
+        </mat-error>
+      </mat-form-field>
 
-        </form>
-      </mat-card-content>
-    </mat-card>
+      <div class="button">
+      <!--<button type="submit" mat-button>Inciar Sesión</button>-->
+        <button mat-flat-button color="primary" (click)="registrar()">
+        Aceptar
+        </button>
+      </div>
+
+    </form>
+  </mat-card-content>
+</mat-card>

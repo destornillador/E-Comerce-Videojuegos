@@ -1,0 +1,5 @@
+<app-menu (valor)="AbrirModal($event)"></app-menu>
+
+<div *ngIf="(TIPO == '1')"><!--Este div es necesario para que compile -->
+    <app-lista-empleados (cambio)="ActualizarLista($event2)" [listaEmpleados]="listadoParaCompartir"></app-lista-empleados>
+</div>

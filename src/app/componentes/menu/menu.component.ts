@@ -12,6 +12,7 @@ export class MenuComponent implements OnInit {
   @Input()
 
   TIPO:string="";
+  nombreUsuario:string="";
   constructor(public verificarService:VerificarService,public router:Router) { }
 
   IR(destino:string)
@@ -25,14 +26,18 @@ export class MenuComponent implements OnInit {
   SignIn(){
     this.valor.emit(2);
   }
-
+  logOut(){
+    this.valor.emit(0);
+  }
   ngOnInit() {
     let tokenjs = localStorage.getItem("Token");
     let token:any = tokenjs!=null?JSON.parse(tokenjs):null;
     this.verificarService.recuperToken(token).then(
       (datos) => {
-        if(datos.respuesta)
+        if(datos.respuesta){
           this.TIPO = datos.respuesta.tipoUsuarioId;
+          this.nombreUsuario = datos.respuesta.usuario;
+        }
         else
           this.TIPO = "0";
       }

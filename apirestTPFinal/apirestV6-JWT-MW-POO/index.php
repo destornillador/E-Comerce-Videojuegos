@@ -7,6 +7,7 @@ use \Psr\Http\Message\ResponseInterface as Response;
 require '../composer/vendor/autoload.php';
 require_once 'clases/JuegoApi.php';
 require_once 'clases/UsuarioApi.php';
+require_once 'clases/ArticuloApi.php';
 
 require_once 'clases/MWparaAutentificar.php';
 require_once 'clases/MWparaCORS.php';
@@ -72,9 +73,19 @@ $app->add(function ($req, $res, $next) {
 $app->group('/ecomerce', function () {
       $this->post('/', \JuegoApi::class . ':TraerJuegos')->add(\MWparaCORS::class . ':HabilitarCORS8080');
       $this->post('/getJuego', \JuegoApi::class . ':TraerJuego')->add(\MWparaCORS::class . ':HabilitarCORS8080');
-      
-      $this->post('/login',\UsuarioApi::class . ':traerUno')->add(\MWparaCORS::class . ':HabilitarCORSTodos');
+      $this->post('/guardarJuego', \JuegoApi::class . ':CargarUno')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/actualizarJuego', \JuegoApi::class . ':ActualizarUno')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/getArticulos', \ArticuloApi::class . ':TraerArticulos')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/agregarNuevoArticulo', \ArticuloApi::class . ':AgregarNuevoArticulo');
+      $this->post('/agregarArticulo', \ArticuloApi::class . ':AgregarArticulo');
+      $this->post('/retirarArticulo', \ArticuloApi::class . ':RetirarArticulo');
+
+      $this->post('/login',\UsuarioApi::class . ':TraerUno')->add(\MWparaCORS::class . ':HabilitarCORSTodos');
       $this->post('/guardarCliente', \UsuarioApi::class . ':CargarUno')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/listarEmpleados', \UsuarioApi::class . ':TraerTodos')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/habilitar', \UsuarioApi::class . ':HabilitarUsuario');
+      $this->post('/contratar', \UsuarioApi::class . ':ContratarUsuario');
+      $this->post('/desabilitar', \UsuarioApi::class . ':DesabilitarUsuario');
 
       $this->post('/CrearToken', \UsuarioApi::class . ':CrearToken')->add(\MWparaCORS::class . ':HabilitarCORSTodos');
       $this->post('/VerificarToken', \UsuarioApi::class . ':VerificarToken')->add(\MWparaCORS::class . ':HabilitarCORSTodos');

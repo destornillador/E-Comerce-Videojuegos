@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { CustomMaterialModule } from './material/material.module';
+import { NgxFileDropModule } from 'ngx-file-drop';
 import { RuteoModule } from './ruteo/ruteo.module';
 
 
@@ -13,9 +14,16 @@ import { AppComponent } from './app.component';
 import { PrincipalComponent } from './componentes/principal/principal.component';
 import { ErrorComponent } from './componentes/error/error.component';
 import { MenuComponent } from './componentes/menu/menu.component';
+import { JuegoDatosComponent } from './componentes/juego-datos/juego-datos.component';
+import { ListaArticulosComponent } from './componentes/lista-articulos/lista-articulos.component';
+import { AbmEmpleadosComponent } from './componentes/abm-empleados/abm-empleados.component';
+import { ListaEmpleadosComponent } from './componentes/lista-empleados/lista-empleados.component';
+
+//Modals
 import { LoginComponent } from './componentes/login/login.component';
 import { RegistroComponent } from './componentes/registro/registro.component';
-import { JuegoDatosComponent } from './componentes/juego-datos/juego-datos.component';
+import { AltaJuegoComponent } from './componentes/alta-juego/alta-juego.component';
+import { AltaArticuloComponent } from './componentes/alta-articulo/alta-articulo.component';
 
 //Servicios
 import {HttpService} from './servicios/http.service';
@@ -26,7 +34,9 @@ import {VerificarService} from './servicios/verificar.service';
 @NgModule({
   entryComponents: [
     LoginComponent,
-    RegistroComponent
+    RegistroComponent,
+    AltaJuegoComponent,
+    AltaArticuloComponent,
   ],
   declarations: [
     AppComponent,
@@ -35,7 +45,12 @@ import {VerificarService} from './servicios/verificar.service';
     MenuComponent,
     LoginComponent,
     RegistroComponent,
-    JuegoDatosComponent
+    JuegoDatosComponent,
+    AltaJuegoComponent,
+    ListaArticulosComponent,
+    AltaArticuloComponent,
+    AbmEmpleadosComponent,
+    ListaEmpleadosComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +59,8 @@ import {VerificarService} from './servicios/verificar.service';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    CustomMaterialModule
+    CustomMaterialModule,
+    NgxFileDropModule
   ],
   providers: [
   JuegoService,

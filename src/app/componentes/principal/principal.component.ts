@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { JuegoService } from '../../servicios/juego.service';
 import { Router} from '@angular/router';
 import { MatDialog,MatDialogConfig } from "@angular/material/dialog";
 
+import { JuegoService } from '../../servicios/juego.service';
+import { VerificarService } from '../../servicios/verificar.service';
+
 import { LoginComponent } from '../login/login.component';
 import { RegistroComponent } from '../registro/registro.component';
+import { AltaJuegoComponent } from '../alta-juego/alta-juego.component';
 
 @Component({
   selector: 'app-principal',
@@ -13,15 +16,26 @@ import { RegistroComponent } from '../registro/registro.component';
 })
 export class PrincipalComponent implements OnInit {
 
+  TIPO:string="";
   public juegos: any[];
   public formato: string = "";
   public genero: string = "";
   public plataforma: string = "";
   public orden: string = "";
   public titulo: string = "";
-  constructor(public JuegoService : JuegoService, public dialog: MatDialog,public router:Router) { }
+  constructor(public JuegoService : JuegoService,public verificarService :VerificarService,public dialog: MatDialog,public router:Router) { }
 
   ngOnInit() {
+    let tokenjs = localStorage.getItem("Token");
+    let token:any = tokenjs!=null?JSON.parse(tokenjs):null;
+    this.verificarService.recuperToken(token).then(
+      (datos) => {
+        if(datos.respuesta)
+          this.TIPO = datos.respuesta.tipoUsuarioId;
+        else
+          this.TIPO = "0";
+      }
+    );
     this.buscar();
   }
 
@@ -60,6 +74,24 @@ export class PrincipalComponent implements OnInit {
         console.log(res);
       })
     }
+    if(event == 0){
+      localStorage.clear();
+      window.location.reload();
+    }
+  }
+
+  AgregarJuego(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      titulo:"Registro de juego",
+      juegoNuevo: true,
+    };
+    
+    const dialogRef = this.dialog.open(AltaJuegoComponent, dialogConfig);
+    
+    dialogRef.afterClosed().subscribe(res => {
+      console.log(res);
+    })
   }
 
 }

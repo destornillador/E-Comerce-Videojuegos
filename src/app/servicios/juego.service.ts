@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { Juego } from '../clases/juego';
+import { Articulo } from '../clases/articulo';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,7 @@ export class JuegoService {
     );
     return promesa;
   }
-public obtenerJuego(juegoId): Promise<Juego> {
+  public obtenerJuego(juegoId): Promise<Juego> {
     let promesa: Promise<Juego> = new Promise((resolve, reject) => {
       this.miHttp.traerJuego(juegoId)
         .then(datos => {
@@ -39,5 +40,83 @@ public obtenerJuego(juegoId): Promise<Juego> {
     }
     );
     return promesa;
+  }
+  public listarArticulosPromesa(juegoId): Promise<Array<Articulo>> {
+    let promesa: Promise<Array<Articulo>> = new Promise((resolve, reject) => {
+      this.miHttp.traerArticulos(juegoId)
+        .then(datos => {
+          console.log(datos);
+          let miArray: Array<Articulo> = new Array<Articulo>();
+          for (let unDato of datos) {
+            miArray.push(new Articulo(unDato.id, unDato.juegoId, unDato.disponible, unDato.codigo));                        
+          }
+          resolve(miArray);
+        })
+        .catch(error => { console.log(error); });
+    }
+    );
+    return promesa;
+  }
+  public RegistrarJuego(juego: Juego,file: any): Promise<boolean> {
+    
+    let result: Promise<boolean> = this.miHttp.entregarJuego(juego,file)
+      .then(datos => {
+        return true;
+      })
+      .catch(error => {
+        console.log(error);
+        return false;
+      });
+    return result;
+  }
+  public ActualizarJuego(juego: Juego,updateFoto: boolean,file: any): Promise<boolean> {
+    
+    let result: Promise<boolean> = this.miHttp.actualizarJuego(juego,updateFoto,file)
+      .then(datos => {
+        debugger;
+        return true;
+      })
+      .catch(error => {
+        debugger;
+        console.log(error);
+        return false;
+      });
+    return result;
+  }
+  public RegistrarArticulo(articulo: Articulo): Promise<boolean> {
+    
+    let result: Promise<boolean> = this.miHttp.entregarArticulo(articulo)
+      .then(datos => {
+        return true;
+      })
+      .catch(error => {
+        console.log(error);
+        return false;
+      });
+    return result;
+  }
+  AgregarArticulo(id:string):Promise<boolean>
+  {
+    let result: Promise<boolean> = this.miHttp.agregarArticulo(id)
+      .then(datos => {
+        return true;
+      })
+      .catch(error => {
+        console.log(error);
+        return false;
+      });
+    return result;
+  }
+  RetirarArticulo(id:string):Promise<boolean>
+  {
+    let result: Promise<boolean> = this.miHttp.retirarArticulo(id)
+      .then(datos => {
+        return true;
+      })
+      .catch(error => {
+        console.log(error);
+        return false;
+      });
+    return result;
   }
 }

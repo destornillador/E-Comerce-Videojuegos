@@ -32,6 +32,8 @@ export class RegistroComponent implements OnInit {
   telefono: number;
   fechaNacimiento: Date;
 
+  tipo: number = 2;
+
   formErrors = { 
     usuario: "", 
     contrasenia: "",
@@ -125,13 +127,20 @@ export class RegistroComponent implements OnInit {
         }
       }
   }
-
+  actualizarTipo(value:number){
+    this.tipo = value;
+  }
   registrar(){
-    //if (this.registroForm.invalid) return alert("Complete los campos requeridos");
+    console.log(this.tipo);
+    if (this.registroForm.invalid) return alert("Complete los campos requeridos");
     var fecha = this.fechaNacimiento.toDateString().split(" ");
     var fechaString = this.obtenerFecha(fecha);
-    
-    var usuario = new Usuario(0,this.username,this.password,this.nombre,this.apellido,this.sexo,this.email,this.telefono,fechaString,2);
+    var estado = 1;
+    if(this.tipo == 3){
+      estado = 3;
+    }
+
+    var usuario = new Usuario(0,this.username,this.password,this.nombre,this.apellido,this.sexo,this.email,this.telefono,fechaString,this.tipo,estado);
 
     this.usuarioService.RegistrarCliente(usuario)
         .then((datos) => {

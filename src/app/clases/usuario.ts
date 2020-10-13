@@ -9,7 +9,8 @@ export class Usuario {
     public email: string,
     public telefono: number,
     public fechaNacimiento: string,
-    public tipoUsuarioId: number) { 
+    public tipoUsuarioId: number,
+    public estado:number) { 
         this.id = id;
         this.usuario = usuario;
         this.contrasenia = contrasenia;
@@ -20,5 +21,6 @@ export class Usuario {
         this.telefono = telefono;
         this.fechaNacimiento = fechaNacimiento;
         this.tipoUsuarioId = tipoUsuarioId;
+        this.estado = estado;
     }
 }

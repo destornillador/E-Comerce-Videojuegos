@@ -1,0 +1,121 @@
+<mat-card>
+    <mat-card-title>{{datos.titulo}}</mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="registroForm" *ngIf="datos.juegoNuevo">
+            <mat-form-field>
+                <input type="text" matInput [(ngModel)]="titulo" placeholder="Ingrese titulo del juego" formControlName="titulo" required>
+                <mat-error *ngIf="formErrors.titulo">{{formErrors.titulo}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input type="text" matInput [(ngModel)]="descripcion" placeholder="Ingrese descripcion del juego" formControlName="descripcion" required>
+                <mat-error *ngIf="formErrors.descripcion">{{formErrors.descripcion}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input type="text" matInput [(ngModel)]="precio" placeholder="Ingrese precio del juego" formControlName="precio" required>
+                <mat-error *ngIf="formErrors.precio">{{formErrors.precio}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-select placeholder="Seleccione consola" [(ngModel)]="plataforma" formControlName="plataforma"
+                required>
+                    <mat-option *ngFor="let plataforma of plataformas" [value]="plataforma.id">
+                    {{plataforma.valor}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="formErrors.plataforma">{{formErrors.plataforma}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-select placeholder="Seleccione formato" [(ngModel)]="formato" formControlName="formato"
+                required>
+                    <mat-option *ngFor="let formato of formatos" [value]="formato.id">
+                    {{formato.valor}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="formErrors.formato">{{formErrors.formato}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-select placeholder="Seleccione genero" [(ngModel)]="genero" formControlName="genero"
+                required>
+                    <mat-option *ngFor="let genero of generos" [value]="genero.id">
+                    {{genero.valor}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="formErrors.genero">{{formErrors.genero}}</mat-error>
+            </mat-form-field>
+            <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" 
+            (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+                <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                Arrastre la portada aqui: {{nombreFoto1}}
+                <!--<button type="button" (click)="openFileSelector()"></button>-->
+                </ng-template>
+            </ngx-file-drop>
+            <br>
+            <div style="text-align: center">
+                <button class="btn btn-primary btn-lg" (click)="registrar()">
+                Aceptar
+                </button>
+            </div>
+
+        </form>
+
+        <form [formGroup]="registroForm" *ngIf="!datos.juegoNuevo">
+            <mat-form-field>
+                <input type="text" matInput [(ngModel)]="datos.juegoActualizar.titulo" placeholder="Ingrese titulo del juego" formControlName="titulo" required>
+                <mat-error *ngIf="formErrors.titulo">{{formErrors.titulo}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input type="text" matInput [(ngModel)]="datos.juegoActualizar.descripcion" placeholder="Ingrese descripcion del juego" formControlName="descripcion" required>
+                <mat-error *ngIf="formErrors.descripcion">{{formErrors.descripcion}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input type="text" matInput [(ngModel)]="datos.juegoActualizar.precio" placeholder="Ingrese precio del juego" formControlName="precio" required>
+                <mat-error *ngIf="formErrors.precio">{{formErrors.precio}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-select placeholder="Seleccione consola" [(ngModel)]="datos.juegoActualizar.plataformaId" [disabled]="true" formControlName="plataforma"
+                required>
+                    <mat-option *ngFor="let plataforma of plataformas" [value]="plataforma.id">
+                    {{plataforma.valor}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="formErrors.plataforma">{{formErrors.plataforma}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-select placeholder="Seleccione formato" [(ngModel)]="datos.juegoActualizar.formatoId" [disabled]="true" formControlName="formato"
+                required>
+                    <mat-option *ngFor="let formato of formatos" [value]="formato.id">
+                    {{formato.valor}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="formErrors.formato">{{formErrors.formato}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-select placeholder="Seleccione genero" [(ngModel)]="datos.juegoActualizar.generoId" [disabled]="true" formControlName="genero"
+                required>
+                    <mat-option *ngFor="let genero of generos" [value]="genero.id">
+                    {{genero.valor}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="formErrors.genero">{{formErrors.genero}}</mat-error>
+            </mat-form-field>
+
+            <label class="radio-inline"><input  type="checkbox" (change)="updateFoto = !updateFoto" [checked]="updateFoto"> Cambiar Foto</label>
+            <div *ngIf="updateFoto">
+                <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" 
+                (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                    Arrastre la portada aqui: {{nombreFoto1}}
+                    <!--<button type="button" (click)="openFileSelector()"></button>-->
+                    </ng-template>
+                </ngx-file-drop>
+                <br>
+            </div>
+
+             <div style="text-align: center">
+                <button class="btn btn-primary btn-lg" (click)="Actualizar()">
+                Aceptar
+                </button>
+            </div>
+
+        </form>
+    </mat-card-content>
+</mat-card>

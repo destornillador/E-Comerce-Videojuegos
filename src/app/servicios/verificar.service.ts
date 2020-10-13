@@ -31,7 +31,6 @@ export class VerificarService {
   crearToken(datos: any) {
     let result: Promise<boolean> = this.http.crearToken(datos).then(
       (misDatos) => {
-        debugger;
         localStorage.setItem("Token", JSON.stringify(misDatos.respuesta));
         return true;
       });

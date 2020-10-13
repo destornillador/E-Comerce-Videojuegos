@@ -31,6 +31,14 @@ export class HttpService {
     //return this.http.post(url,paramString).toPromise().then(this.extractData).catch(this.handleError);
     return this.http.post(this.URl,formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
+  traerArticulos(juegoId){
+    const formData = new FormData();
+    formData.append('juegoId',juegoId);
+    let header = new HttpHeaders();
+    header.append('Content-Type','application/json');
+    //return this.http.post(url,paramString).toPromise().then(this.extractData).catch(this.handleError);
+    return this.http.post(this.URl+"getArticulos",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+  }
   traerJuego(juegoId)
   { 
     const formData = new FormData();
@@ -40,8 +48,73 @@ export class HttpService {
     //return this.http.post(url,paramString).toPromise().then(this.extractData).catch(this.handleError);
     return this.http.post(this.URl+"getJuego",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
+  entregarJuego(juego:any,file: any)
+  {
+    //var param = {usuario:player.usuario,nombre:player.nombre,apellido:player.apellido,contrasenia:player.contrasenia,email:player.email};
+    //var paramString = JSON.stringify(param);
+    const formData = new FormData()
+    formData.append('titulo',juego.titulo);
+    formData.append('precio',juego.precio);
+    formData.append('plataformaId',juego.plataformaId);
+    formData.append('generoId',juego.generoId);
+    formData.append('formatoId',juego.formatoId);
+    formData.append('fotoNombre',juego.foto);
+    formData.append('descripcion',juego.descripcion);
+    formData.append('foto',file);
 
-  buscarUsuario(url:string,usuario:string,clave:string)
+    let header = new HttpHeaders();
+    header.append('Content-Type','application/json');
+    
+    return this.http.post(this.URl+"guardarJuego",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+  }
+  actualizarJuego(juego:any,updateFoto: boolean,file: any)
+  {
+    //var param = {usuario:player.usuario,nombre:player.nombre,apellido:player.apellido,contrasenia:player.contrasenia,email:player.email};
+    //var paramString = JSON.stringify(param);
+    const formData = new FormData()
+    debugger;
+    formData.append('id',juego.id);
+    formData.append('titulo',juego.titulo);
+    formData.append('precio',juego.precio);
+    formData.append('descripcion',juego.descripcion);
+    formData.append('cambiarFoto',updateFoto?"Si":"No");
+    formData.append('fotoNombre',juego.foto);
+    formData.append('foto',file);
+
+    let header = new HttpHeaders();
+    header.append('Content-Type','application/json');
+    
+    return this.http.post(this.URl+"actualizarJuego",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+  }
+  entregarArticulo(juego:any)
+  {
+    const formData = new FormData()
+    formData.append('juegoId',juego.juegoId);
+    formData.append('codigo',juego.codigo);
+    
+    let header = new HttpHeaders();
+    header.append('Content-Type','application/json');
+    
+    return this.http.post(this.URl+"agregarNuevoArticulo",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+  }
+  retirarArticulo(id:string)
+  {
+    const formData = new FormData();
+    formData.append('id',id);
+    let header = new HttpHeaders()
+    header.append('Content-Type', 'application/json');
+    return this.http.post(this.URl+"retirarArticulo", formData,{headers: header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+  }
+  agregarArticulo(id:string)
+  {
+    const formData = new FormData();
+    formData.append('id',id);
+    let header = new HttpHeaders();
+    header.append('Content-Type', 'application/json');
+    return this.http.post(this.URl+"agregarArticulo", formData,{headers: header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+  }
+
+  buscarUsuario(usuario:string,clave:string)
   { 
     const formData = new FormData()
     formData.append('usuario',usuario);
@@ -49,6 +122,14 @@ export class HttpService {
     let header = new HttpHeaders();
     header.append('Content-Type','application/json');
     return this.http.post(this.URl+"login",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+  }
+  traerEmpleados()
+  { 
+    const formData = new FormData();
+    let header = new HttpHeaders();
+    header.append('Content-Type','application/json');
+    //return this.http.post(url,paramString).toPromise().then(this.extractData).catch(this.handleError);
+    return this.http.post(this.URl+"listarEmpleados",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
   entregarCliente(user:any)
   {
@@ -64,13 +145,37 @@ export class HttpService {
     formData.append('telefono',user.telefono);
     formData.append('email',user.email);
     formData.append('fechaNacimiento',user.fechaNacimiento);
+    formData.append('estado',user.estado);
 
     let header = new HttpHeaders();
     header.append('Content-Type','application/json');
     
     return this.http.post(this.URl+"guardarCliente",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
-
+  habilitarEmpleado(id:string)
+  {
+    const formData = new FormData();
+    formData.append('id',id);
+    let header = new HttpHeaders()
+    header.append('Content-Type', 'application/json');
+    return this.http.post(this.URl+"habilitar", formData,{headers: header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+  }
+  desabilitarEmpleado(id:string)
+  {
+    const formData = new FormData();
+    formData.append('id',id);
+    let header = new HttpHeaders();
+    header.append('Content-Type', 'application/json');
+    return this.http.post(this.URl+"desabilitar", formData,{headers: header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+  }
+  contratarEmpleado(id:string)
+  {
+    const formData = new FormData();
+    formData.append('id',id);
+    let header = new HttpHeaders();
+    header.append('Content-Type', 'application/json');
+    return this.http.post(this.URl+"contratar", formData,{headers: header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+  }
 
   crearToken(datos:any)
   { 

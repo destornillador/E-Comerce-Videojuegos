@@ -1,0 +1,192 @@
+import { Component, OnInit, Inject } from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
+import { JuegoService } from '../../servicios/juego.service';
+import { Juego } from '../../clases/juego';
+
+@Component({
+  selector: 'app-alta-juego',
+  templateUrl: './alta-juego.component.html',
+  styleUrls: ['./alta-juego.component.css']
+})
+export class AltaJuegoComponent implements OnInit {
+
+  public generos = [];
+  public formatos = [];
+  public plataformas = [];
+
+  titulo: string;
+  descripcion: string;
+  precio: number;
+  plataforma: number;
+  formato: number;
+  genero: number;
+  updateFoto: boolean = false;
+  
+  formErrors = { 
+    titulo: "", 
+    descripcion: "",
+    precio: "",
+    plataforma: "",
+    formato: "",
+    genero: "",
+  };
+  validation_messages = {
+    titulo: {
+      required: "Este campo es requerido",
+      minlength: "Ingresá un usuario mayor a 5 caracteres",
+    },
+    descripcion: {
+      required: "Este campo es requerido",
+      minlength: "Ingresá una contraseña mayor a 10 caracteres",
+    },
+    precio: {
+      required: "Este campo es requerido",
+    },
+    plataforma: {
+      required: "Este campo es requerido",
+    },
+    formato: {
+      required: "Este campo es requerido",
+    },
+    genero: {
+      required: "Este campo es requerido",
+    },
+  };
+
+  public registroForm: FormGroup;
+  public files: NgxFileDropEntry[] = [];
+  public file: File;
+  public nombreFoto1: string = "";
+  public datos: any;
+
+  constructor(
+    public formBuilder: FormBuilder,
+    public juegoService: JuegoService,
+    public dialogref: MatDialogRef<AltaJuegoComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) { }
+
+  ngOnInit(): void {
+    this.formatos = [{id:1,valor:"Físico"},{id:2,valor:"Digital"}];
+    this.plataformas = [{id:1,valor:"Xbox One"},{id:2,valor:"PS4"},{id:3,valor:"Switch"}];
+    this.generos = [{id:1,valor:"Shooter"},{id:2,valor:"Plataformas"},{id:3,valor:"RPG"},{id:4,valor:"Carreras"},{id:5,valor:"Peleas"}];
+    this.datos = this.data;
+    this.registroForm = this.crearForm();
+  }
+
+  crearForm(): FormGroup {
+    let form = this.formBuilder.group(
+      {
+        titulo: [this.titulo, [Validators.required,Validators.minLength(5)]],
+        descripcion: [this.descripcion, [Validators.required,Validators.minLength(10)]],
+        precio: [this.precio, [Validators.required]],
+        plataforma: [this.plataforma, [Validators.required]],
+        formato: [this.formato, [Validators.required]],
+        genero: [this.genero, [Validators.required]],
+      }
+    );
+    form.valueChanges.subscribe(data => this.onValueChanged(data));
+    return form;
+  };
+  onValueChanged(data?: any) {
+    if (!this.registroForm) {
+      return;
+    }
+    const form = this.registroForm;
+      for (const field in this.formErrors) {
+        if (this.formErrors.hasOwnProperty(field)) {
+          // clear previous error message (if any)
+          this.formErrors[field] = "";
+          const control = form.get(field);
+          if (control && !control.valid) {
+            const messages = this.validation_messages[field];
+            for (const key in control.errors) {
+              if (control.errors.hasOwnProperty(key)) {
+                this.formErrors[field] += messages[key] + " ";
+              }
+            }
+          }
+        }
+      }
+  }
+
+  registrar(){
+    if (this.registroForm.invalid) return alert("Complete los campos requeridos");
+    var fotoNombre = "";
+    var arrayNombre : String[] = this.titulo.split(" ");
+    console.log(fotoNombre);
+    for(var i = 0;i < arrayNombre.length;i++){
+      fotoNombre = fotoNombre + arrayNombre[i];
+    }
+    fotoNombre = fotoNombre+".jpg"
+    var juego = new Juego(0,this.titulo,this.precio,this.plataforma,this.genero,this.formato,"","","",fotoNombre,this.descripcion);
+
+    this.juegoService.RegistrarJuego(juego,this.file)
+    .then((datos) => {
+      if (datos == true) 
+      {
+        alert("Se registro con exito");
+      }
+      })
+      .catch(
+      (noSeEncontroUsuario) => { alert("Error en el sistema"); }
+      );
+  }
+  
+  Actualizar(){
+    if (this.registroForm.invalid) return alert("Complete los campos requeridos");
+    
+    if(this.file != null){
+      var fotoNombre = "";
+      var arrayNombre : String[] = this.datos.juegoActualizar.titulo.split(" ");
+      console.log(fotoNombre);
+      for(var i = 0;i < arrayNombre.length;i++){
+        fotoNombre = fotoNombre + arrayNombre[i];
+      }
+      fotoNombre = fotoNombre+".jpg"
+    }
+    else{
+      fotoNombre = this.datos.juegoActualizar.foto;
+    }
+    var juego = new Juego(this.datos.juegoActualizar.id,this.datos.juegoActualizar.titulo,this.datos.juegoActualizar.precio,
+    this.datos.juegoActualizar.plataformaId,this.datos.juegoActualizar.generoId,this.datos.juegoActualizar.formatoId,"","","",fotoNombre,this.datos.juegoActualizar.descripcion);
+
+    this.juegoService.ActualizarJuego(juego,this.updateFoto,this.file)
+    .then((datos) => {
+      if (datos == true) 
+      {
+        alert("Se actualizo con exito");
+      }
+      })
+      .catch(
+      (noSeEncontroUsuario) => { alert("Error en el sistema"); }
+      );
+  }
+
+  public dropped(files: NgxFileDropEntry[]) {
+    this.files = files;
+    for (const droppedFile of files) {
+ 
+      if (droppedFile.fileEntry.isFile) {
+        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
+        fileEntry.file((file: File) => {
+          this.nombreFoto1 = file.name;
+          this.file = file;
+        });
+      } else {
+        // It was a directory (empty directories are added, otherwise only files)
+        const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
+        console.log(droppedFile.relativePath, fileEntry);
+      }
+    }
+  }
+  public fileOver(event) {
+    console.log(event);
+  }
+
+  public fileLeave(event) {
+    console.log(event);
+  }
+}

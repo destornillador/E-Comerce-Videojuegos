@@ -66,5 +66,24 @@ class Juego
 			return $consulta->fetchAll(PDO::FETCH_CLASS, "Juego");		
 	}
     
+    public static function InsertarJuegoParametros($titulo,$precio,$plataformaId,$generoId,$formatoId,$descripcion,$fotoNombre)
+    {
+               $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+               $consulta =$objetoAccesoDato->RetornarConsulta("INSERT into juego(titulo, precio, plataformaId, generoId, formatoId, foto, descripcion)
+               values ('$titulo','$precio','$plataformaId','$generoId','$formatoId','$fotoNombre','$descripcion')");
+               
+               $consulta->execute();		
+               return $objetoAccesoDato->RetornarUltimoIdInsertado();
+    }
+    public static function ActualizarJuegoParametros($id,$titulo,$precio,$descripcion,$fotoNombre)
+    {
+               $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+               $consulta =$objetoAccesoDato->RetornarConsulta("Update juego
+               set titulo = '$titulo', descripcion = '$descripcion', precio = {$precio}, foto = '$fotoNombre'
+               where id = {$id}");
+               
+               $consulta->execute();		
+               return $objetoAccesoDato->RetornarUltimoIdInsertado();
+    }
 }
 ?>

@@ -1,0 +1,27 @@
+<h1>Lista de Empleados: </h1>
+<table *ngIf="listaEmpleados.length > 0" class='table table-hover table-responsive table-fixed'>
+  <thead>
+    <tr style="font-size: 25px;font-family: Georgia, 'Times New Roman', serif;">
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Telefono</th>
+      <th>Email</th>
+      <th>Fecha de nacimiento</th>
+      <th>Sexo</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let empleado of listaEmpleados" >
+    <tr style="font-size: 25px;font-family: Georgia, 'Times New Roman', serif;">
+      <td>{{empleado.nombre}} </td> 
+      <td>{{empleado.apellido}} </td> 
+      <td>{{empleado.telefono}} </td> 
+      <td>{{empleado.email}} </td> 
+      <td>{{empleado.fechaNacimiento}} </td> 
+      <td>{{empleado.sexo}} </td>
+      <td *ngIf="empleado.estado == '3'"><button class="btn btn-info" (click)="Contratar(empleado.id)" style="width: 100%">Contratar Empleado</button></td>
+      <td *ngIf="empleado.estado == '1'"><button class="btn btn-danger" (click)="Desabilitar(empleado.id)" style="width: 100%">Desabilitar Empleado</button></td>
+      <td *ngIf="empleado.estado == '2'"><button class="btn btn-success" (click)="Habilitar(empleado.id)" style="width: 100%">Habilitar Empleado</button></td> 
+    </tr> 
+    </tbody>
+</table>
+<h2 *ngIf="listaEmpleados.length == 0" > No hay Empleados disponibles</h2>

@@ -45,6 +45,7 @@ class JuegoApi extends Juego
        $generoId = $ArrayDeParametros["generoId"];
        $formatoId = $ArrayDeParametros["formatoId"];
        $descripcion = $ArrayDeParametros["descripcion"];
+       $stock = $ArrayDeParametros["stock"];
        $fotoNombre = $ArrayDeParametros["fotoNombre"];
        
        $destino="../../src/assets/portadas/";
@@ -57,7 +58,7 @@ class JuegoApi extends Juego
        //$NombreFoto = $Usuario.'.'.$extension[0];
        $archivos['foto']->moveTo($destino.$fotoNombre);
 
-       $ultimoId =  Juego::InsertarJuegoParametros($titulo,$precio,$plataformaId,$generoId,$formatoId,$descripcion,$fotoNombre);
+       $ultimoId =  Juego::InsertarJuegoParametros($titulo,$precio,$plataformaId,$generoId,$formatoId,$descripcion,$stock,$fotoNombre);
        $objDelaRespuesta->respuesta=$ultimoId;
        
        return $response->withJson($objDelaRespuesta, 200);
@@ -72,6 +73,7 @@ class JuegoApi extends Juego
        $titulo = $ArrayDeParametros["titulo"];
        $precio = floatval($ArrayDeParametros["precio"]);
        $descripcion = $ArrayDeParametros["descripcion"];
+       $stock = $ArrayDeParametros["stock"];
        $fotoNombre = $ArrayDeParametros["fotoNombre"];
        $actualizar = $ArrayDeParametros["cambiarFoto"];
        
@@ -83,7 +85,7 @@ class JuegoApi extends Juego
         $archivos['foto']->moveTo($destino.$fotoNombre);
        }
 
-       $consulta =  Juego::ActualizarJuegoParametros($id,$titulo,$precio,$descripcion,$fotoNombre);
+       $consulta =  Juego::ActualizarJuegoParametros($id,$titulo,$precio,$descripcion,$stock,$fotoNombre);
        $objDelaRespuesta->respuesta=$consulta;
        
     

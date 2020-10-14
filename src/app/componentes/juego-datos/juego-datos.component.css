@@ -23,6 +23,12 @@
         font-size: 80px;
         color: darkorange;
     }
+    .datos h2
+    {   
+        text-align: right;
+        font-size: 40px;
+        color: darkorange;
+    }
     .datos button
     {
         background-color: darkorange;
@@ -36,6 +42,12 @@
     {
         text-align: center;
         font-size: 60px;
+        color: darkorange;
+    }
+    .datos h2
+    {
+        text-align: center;
+        font-size: 40px;
         color: darkorange;
     }
     .datos button

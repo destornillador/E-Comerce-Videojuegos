@@ -8,7 +8,6 @@ import { VerificarService } from '../../servicios/verificar.service';
 import { LoginComponent } from '../login/login.component';
 import { RegistroComponent } from '../registro/registro.component';
 import { AltaJuegoComponent } from '../alta-juego/alta-juego.component';
-import { AltaArticuloComponent } from '../alta-articulo/alta-articulo.component';
 
 @Component({
   selector: 'app-juego-datos',
@@ -39,12 +38,7 @@ export class JuegoDatosComponent implements OnInit {
     const juegoId = this.route.snapshot.paramMap.get('id');
     this.JuegoService.obtenerJuego(juegoId).then(
       (datos) => {
-        this.juego = datos;
-        this.JuegoService.listarArticulosPromesa(juegoId).then(
-          (articulos) =>{
-            this.listadoParaCompartir = articulos;
-          }
-        );        
+        this.juego = datos;  
       }
     );
   }
@@ -63,25 +57,7 @@ export class JuegoDatosComponent implements OnInit {
       console.log(res);
     })
   }
-  AgregarArticulo(){
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = {
-      juegoId: this.juego.id,
-    };
-    
-    const dialogRef = this.dialog.open(AltaArticuloComponent, dialogConfig);
-    
-    dialogRef.afterClosed().subscribe(res => {
-      console.log(res);
-    })
-  }
-  Actualizar(event2: any) {
-    this.JuegoService.listarArticulosPromesa(this.juego.id).then(
-          (articulos) =>{
-            this.listadoParaCompartir = articulos;
-          }
-        );
-  }
+  
   AbrirModal(event: any) {
     if(event == 1){
       const dialogConfig = new MatDialogConfig();

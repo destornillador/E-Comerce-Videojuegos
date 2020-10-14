@@ -7,7 +7,6 @@ use \Psr\Http\Message\ResponseInterface as Response;
 require '../composer/vendor/autoload.php';
 require_once 'clases/JuegoApi.php';
 require_once 'clases/UsuarioApi.php';
-require_once 'clases/ArticuloApi.php';
 
 require_once 'clases/MWparaAutentificar.php';
 require_once 'clases/MWparaCORS.php';
@@ -75,11 +74,7 @@ $app->group('/ecomerce', function () {
       $this->post('/getJuego', \JuegoApi::class . ':TraerJuego')->add(\MWparaCORS::class . ':HabilitarCORS8080');
       $this->post('/guardarJuego', \JuegoApi::class . ':CargarUno')->add(\MWparaCORS::class . ':HabilitarCORS8080');
       $this->post('/actualizarJuego', \JuegoApi::class . ':ActualizarUno')->add(\MWparaCORS::class . ':HabilitarCORS8080');
-      $this->post('/getArticulos', \ArticuloApi::class . ':TraerArticulos')->add(\MWparaCORS::class . ':HabilitarCORS8080');
-      $this->post('/agregarNuevoArticulo', \ArticuloApi::class . ':AgregarNuevoArticulo');
-      $this->post('/agregarArticulo', \ArticuloApi::class . ':AgregarArticulo');
-      $this->post('/retirarArticulo', \ArticuloApi::class . ':RetirarArticulo');
-
+     
       $this->post('/login',\UsuarioApi::class . ':TraerUno')->add(\MWparaCORS::class . ':HabilitarCORSTodos');
       $this->post('/guardarCliente', \UsuarioApi::class . ':CargarUno')->add(\MWparaCORS::class . ':HabilitarCORS8080');
       $this->post('/listarEmpleados', \UsuarioApi::class . ':TraerTodos')->add(\MWparaCORS::class . ':HabilitarCORS8080');

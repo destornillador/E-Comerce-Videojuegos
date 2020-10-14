@@ -15,7 +15,6 @@ import { PrincipalComponent } from './componentes/principal/principal.component'
 import { ErrorComponent } from './componentes/error/error.component';
 import { MenuComponent } from './componentes/menu/menu.component';
 import { JuegoDatosComponent } from './componentes/juego-datos/juego-datos.component';
-import { ListaArticulosComponent } from './componentes/lista-articulos/lista-articulos.component';
 import { AbmEmpleadosComponent } from './componentes/abm-empleados/abm-empleados.component';
 import { ListaEmpleadosComponent } from './componentes/lista-empleados/lista-empleados.component';
 
@@ -23,7 +22,6 @@ import { ListaEmpleadosComponent } from './componentes/lista-empleados/lista-emp
 import { LoginComponent } from './componentes/login/login.component';
 import { RegistroComponent } from './componentes/registro/registro.component';
 import { AltaJuegoComponent } from './componentes/alta-juego/alta-juego.component';
-import { AltaArticuloComponent } from './componentes/alta-articulo/alta-articulo.component';
 
 //Servicios
 import {HttpService} from './servicios/http.service';
@@ -36,7 +34,6 @@ import {VerificarService} from './servicios/verificar.service';
     LoginComponent,
     RegistroComponent,
     AltaJuegoComponent,
-    AltaArticuloComponent,
   ],
   declarations: [
     AppComponent,
@@ -47,8 +44,6 @@ import {VerificarService} from './servicios/verificar.service';
     RegistroComponent,
     JuegoDatosComponent,
     AltaJuegoComponent,
-    ListaArticulosComponent,
-    AltaArticuloComponent,
     AbmEmpleadosComponent,
     ListaEmpleadosComponent
   ],

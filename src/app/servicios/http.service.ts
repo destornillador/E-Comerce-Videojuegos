@@ -31,14 +31,6 @@ export class HttpService {
     //return this.http.post(url,paramString).toPromise().then(this.extractData).catch(this.handleError);
     return this.http.post(this.URl,formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
-  traerArticulos(juegoId){
-    const formData = new FormData();
-    formData.append('juegoId',juegoId);
-    let header = new HttpHeaders();
-    header.append('Content-Type','application/json');
-    //return this.http.post(url,paramString).toPromise().then(this.extractData).catch(this.handleError);
-    return this.http.post(this.URl+"getArticulos",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
-  }
   traerJuego(juegoId)
   { 
     const formData = new FormData();
@@ -60,6 +52,7 @@ export class HttpService {
     formData.append('formatoId',juego.formatoId);
     formData.append('fotoNombre',juego.foto);
     formData.append('descripcion',juego.descripcion);
+    formData.append('stock',juego.stock);
     formData.append('foto',file);
 
     let header = new HttpHeaders();
@@ -78,6 +71,7 @@ export class HttpService {
     formData.append('precio',juego.precio);
     formData.append('descripcion',juego.descripcion);
     formData.append('cambiarFoto',updateFoto?"Si":"No");
+    formData.append('stock',juego.stock);
     formData.append('fotoNombre',juego.foto);
     formData.append('foto',file);
 
@@ -86,34 +80,7 @@ export class HttpService {
     
     return this.http.post(this.URl+"actualizarJuego",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
-  entregarArticulo(juego:any)
-  {
-    const formData = new FormData()
-    formData.append('juegoId',juego.juegoId);
-    formData.append('codigo',juego.codigo);
-    
-    let header = new HttpHeaders();
-    header.append('Content-Type','application/json');
-    
-    return this.http.post(this.URl+"agregarNuevoArticulo",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
-  }
-  retirarArticulo(id:string)
-  {
-    const formData = new FormData();
-    formData.append('id',id);
-    let header = new HttpHeaders()
-    header.append('Content-Type', 'application/json');
-    return this.http.post(this.URl+"retirarArticulo", formData,{headers: header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
-  }
-  agregarArticulo(id:string)
-  {
-    const formData = new FormData();
-    formData.append('id',id);
-    let header = new HttpHeaders();
-    header.append('Content-Type', 'application/json');
-    return this.http.post(this.URl+"agregarArticulo", formData,{headers: header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
-  }
-
+  
   buscarUsuario(usuario:string,clave:string)
   { 
     const formData = new FormData()

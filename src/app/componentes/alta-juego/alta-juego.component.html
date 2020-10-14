@@ -41,6 +41,10 @@
                 </mat-select>
                 <mat-error *ngIf="formErrors.genero">{{formErrors.genero}}</mat-error>
             </mat-form-field>
+            <mat-form-field>
+                <input type="number" matInput [(ngModel)]="stock" placeholder="Ingrese stock" formControlName="stock" required>
+                <mat-error *ngIf="formErrors.stock">{{formErrors.stock}}</mat-error>
+            </mat-form-field>
             <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" 
             (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
                 <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
@@ -96,6 +100,10 @@
                     </mat-option>
                 </mat-select>
                 <mat-error *ngIf="formErrors.genero">{{formErrors.genero}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input type="number" matInput [(ngModel)]="datos.juegoActualizar.stock" placeholder="Ingrese stock" formControlName="stock" required>
+                <mat-error *ngIf="formErrors.stock">{{formErrors.stock}}</mat-error>
             </mat-form-field>
 
             <label class="radio-inline"><input  type="checkbox" (change)="updateFoto = !updateFoto" [checked]="updateFoto"> Cambiar Foto</label>

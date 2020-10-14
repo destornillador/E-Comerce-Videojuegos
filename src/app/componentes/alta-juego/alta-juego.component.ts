@@ -22,6 +22,7 @@ export class AltaJuegoComponent implements OnInit {
   plataforma: number;
   formato: number;
   genero: number;
+  stock: number;
   updateFoto: boolean = false;
   
   formErrors = { 
@@ -31,6 +32,7 @@ export class AltaJuegoComponent implements OnInit {
     plataforma: "",
     formato: "",
     genero: "",
+    stock: "",
   };
   validation_messages = {
     titulo: {
@@ -51,6 +53,9 @@ export class AltaJuegoComponent implements OnInit {
       required: "Este campo es requerido",
     },
     genero: {
+      required: "Este campo es requerido",
+    },
+    stock: {
       required: "Este campo es requerido",
     },
   };
@@ -85,6 +90,7 @@ export class AltaJuegoComponent implements OnInit {
         plataforma: [this.plataforma, [Validators.required]],
         formato: [this.formato, [Validators.required]],
         genero: [this.genero, [Validators.required]],
+        stock: [this.stock, [Validators.required]],
       }
     );
     form.valueChanges.subscribe(data => this.onValueChanged(data));
@@ -121,7 +127,7 @@ export class AltaJuegoComponent implements OnInit {
       fotoNombre = fotoNombre + arrayNombre[i];
     }
     fotoNombre = fotoNombre+".jpg"
-    var juego = new Juego(0,this.titulo,this.precio,this.plataforma,this.genero,this.formato,"","","",fotoNombre,this.descripcion);
+    var juego = new Juego(0,this.titulo,this.precio,this.plataforma,this.genero,this.formato,this.stock,"","","",fotoNombre,this.descripcion);
 
     this.juegoService.RegistrarJuego(juego,this.file)
     .then((datos) => {
@@ -151,7 +157,8 @@ export class AltaJuegoComponent implements OnInit {
       fotoNombre = this.datos.juegoActualizar.foto;
     }
     var juego = new Juego(this.datos.juegoActualizar.id,this.datos.juegoActualizar.titulo,this.datos.juegoActualizar.precio,
-    this.datos.juegoActualizar.plataformaId,this.datos.juegoActualizar.generoId,this.datos.juegoActualizar.formatoId,"","","",fotoNombre,this.datos.juegoActualizar.descripcion);
+    this.datos.juegoActualizar.plataformaId,this.datos.juegoActualizar.generoId,this.datos.juegoActualizar.formatoId,this.datos.juegoActualizar.stock
+    ,"","","",fotoNombre,this.datos.juegoActualizar.descripcion);
 
     this.juegoService.ActualizarJuego(juego,this.updateFoto,this.file)
     .then((datos) => {

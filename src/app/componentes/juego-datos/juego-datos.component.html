@@ -15,15 +15,13 @@
         <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
             <div class="datos" *ngIf="juego">
                 <h1>$ {{juego.precio}}</h1>
-                <button *ngIf="TIPO == '2'" type="submit" class="btn btn-primary btn-lg">Agregar al carrito</button>
+                <h2>Unidades disponibles: {{juego.stock}}</h2>
+                <button *ngIf="TIPO == '2'" type="submit" class="btn btn-primary btn-lg" [disabled]="juego.stock==0">Agregar al carrito</button>
                 <button *ngIf="TIPO == '1' || TIPO == '3'" (click)="AgregarJuego()" class="btn btn-primary btn-lg">Actualizar datos</button>
                 <br><br>
-                <button *ngIf="TIPO == '1' || TIPO == '3'" (click)="AgregarArticulo()" class="btn btn-primary btn-lg">Agregar Articulo</button>
             </div>
         </div>
     </div>
 </div>
 <br>
-<div *ngIf="(TIPO == '1' || TIPO == '3')">
-    <app-lista-articulos (cambio)="Actualizar($event2)" [listaArticulos]="listadoParaCompartir"></app-lista-articulos>
-</div>
+

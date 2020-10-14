@@ -9,6 +9,7 @@ class Juego
     public $generoId;
     public $plataforma;
     public $formato;
+    public $stock;
     public $genero;
     public $foto;
     public $descripcion;
@@ -66,20 +67,20 @@ class Juego
 			return $consulta->fetchAll(PDO::FETCH_CLASS, "Juego");		
 	}
     
-    public static function InsertarJuegoParametros($titulo,$precio,$plataformaId,$generoId,$formatoId,$descripcion,$fotoNombre)
+    public static function InsertarJuegoParametros($titulo,$precio,$plataformaId,$generoId,$formatoId,$descripcion,$stock,$fotoNombre)
     {
                $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-               $consulta =$objetoAccesoDato->RetornarConsulta("INSERT into juego(titulo, precio, plataformaId, generoId, formatoId, foto, descripcion)
-               values ('$titulo','$precio','$plataformaId','$generoId','$formatoId','$fotoNombre','$descripcion')");
+               $consulta =$objetoAccesoDato->RetornarConsulta("INSERT into juego(titulo, precio, plataformaId, generoId, formatoId, stock, foto, descripcion)
+               values ('$titulo','$precio','$plataformaId','$generoId','$formatoId','$stock','$fotoNombre','$descripcion')");
                
                $consulta->execute();		
                return $objetoAccesoDato->RetornarUltimoIdInsertado();
     }
-    public static function ActualizarJuegoParametros($id,$titulo,$precio,$descripcion,$fotoNombre)
+    public static function ActualizarJuegoParametros($id,$titulo,$precio,$descripcion,$stock,$fotoNombre)
     {
                $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
                $consulta =$objetoAccesoDato->RetornarConsulta("Update juego
-               set titulo = '$titulo', descripcion = '$descripcion', precio = {$precio}, foto = '$fotoNombre'
+               set titulo = '$titulo', descripcion = '$descripcion', precio = {$precio}, stock = {$stock},foto = '$fotoNombre'
                where id = {$id}");
                
                $consulta->execute();		

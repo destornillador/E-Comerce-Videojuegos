@@ -42,7 +42,7 @@ RUN a2enmod rewrite
 ENV APP_NAME=utnfra-tssi-pss2-mundogamer
 WORKDIR /var/www/html/
 #COPY . .
-#COPY --from=nodejs-build /src/public /var/www/html/edrans-web-site/public/
+#COPY --from=nodejs-build /src/public /var/www/html/$APP_NAME/public/
 COPY --from=nodejs-build /src/node_modules /var/www/html/$APP_NAME/node_modules/
 COPY --from=nodejs-build /src/dist /var/www/html/$APP_NAME/dist/
 COPY --from=php-build /src/apirestTPFinal /var/www/html/$APP_NAME/dist/EcomerceJuegosTP/apirestTPFinal/

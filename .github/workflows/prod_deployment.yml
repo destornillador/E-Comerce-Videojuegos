@@ -18,6 +18,6 @@ jobs:
     - name: Login to Heroku Container registry
       run: heroku container:login
     - name: Build and push
-      run: heroku container:push -a ${{ secrets.HEROKU_APP_NAME }} 
+      run: heroku container:push -a ${{ secrets.HEROKU_APP_NAME }} web
     - name: Release
       run: heroku container:release -a ${{ secrets.HEROKU_APP_NAME }}

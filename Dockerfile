@@ -45,11 +45,11 @@ ENV APP_NAME=utnfra-tssi-pss2-mundogamer
 WORKDIR /var/www/html/
 #COPY . .
 #COPY --from=nodejs-build /src/public /var/www/html/$APP_NAME/public/
-COPY --from=nodejs-build /src/node_modules /var/www/html/$APP_NAME/node_modules/
-COPY --from=nodejs-build /src/dist /var/www/html/$APP_NAME/dist/
-COPY --from=php-build /src/apirestTPFinal /var/www/html/$APP_NAME/dist/EcomerceJuegosTP/apirestTPFinal/
+COPY --from=nodejs-build /src/node_modules /var/www/html/node_modules/
+COPY --from=nodejs-build /src/dist /var/www/html/dist/
+COPY --from=php-build /src/apirestTPFinal /var/www/html/dist/EcomerceJuegosTP/apirestTPFinal/
 # FIXME: Ugly workaround
-run ln -s /var/www/html/$APP_NAME/dist/EcomerceJuegosTP /var/www/html/$APP_NAME/dist/EcomerceJuegosTP/EcomerceJuegosTP
+run ln -s /var/www/html/dist/EcomerceJuegosTP /var/www/html/dist/EcomerceJuegosTP/EcomerceJuegosTP
 #COPY --from=php-build /usr/local/include/php/ext/ /usr/local/include/php/ext/
 #COPY --from=php-build /usr/local/etc/php/conf.d/ /usr/local/etc/php/conf.d/
 #COPY --from=php-build /usr/local/lib/php/extensions/ /usr/local/lib/php/extensions/

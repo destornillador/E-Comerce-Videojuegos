@@ -37,6 +37,8 @@ RUN npm ci && \
 FROM php:7.3.21-apache-buster
 # Apache configuration
 COPY cd_assets/httpd/000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY cd_assets/httpd/ports.conf /etc/apache2/ports.conf
+
 RUN a2enmod rewrite
 # Get the website src
 ENV APP_NAME=utnfra-tssi-pss2-mundogamer

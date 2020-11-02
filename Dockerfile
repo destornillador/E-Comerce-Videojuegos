@@ -42,8 +42,6 @@ COPY cd_assets/httpd/ports.conf /etc/apache2/ports.conf
 RUN a2enmod rewrite
 # Get the website src
 WORKDIR /var/www/html/utnfra-tssi-pss2-mundogamer
-#COPY . .
-#COPY --from=nodejs-build /src/public /var/www/html/$APP_NAME/public/
 COPY --from=nodejs-build /src/node_modules/ ./node_modules/
 COPY --from=nodejs-build /src/dist/EcomerceJuegosTP/* .
 COPY --from=php-build /src/apirestTPFinal ./apirestTPFinal/

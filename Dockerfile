@@ -41,15 +41,14 @@ COPY cd_assets/httpd/ports.conf /etc/apache2/ports.conf
 
 RUN a2enmod rewrite
 # Get the website src
-ENV APP_NAME=utnfra-tssi-pss2-mundogamer
-WORKDIR /var/www/html/
+WORKDIR /var/www/html/utnfra-tssi-pss2-mundogamer
 #COPY . .
 #COPY --from=nodejs-build /src/public /var/www/html/$APP_NAME/public/
-COPY --from=nodejs-build /src/node_modules /var/www/html/node_modules/
-COPY --from=nodejs-build /src/dist /var/www/html/dist/
-COPY --from=php-build /src/apirestTPFinal /var/www/html/dist/EcomerceJuegosTP/apirestTPFinal/
+COPY --from=nodejs-build /src/node_modules ./node_modules/
+COPY --from=nodejs-build /src/dist ./dist/
+COPY --from=php-build /src/apirestTPFinal ./dist/EcomerceJuegosTP/apirestTPFinal/
 # FIXME: Ugly workaround
-run ln -s /var/www/html/dist/EcomerceJuegosTP /var/www/html/dist/EcomerceJuegosTP/EcomerceJuegosTP
+run ln -s /var/www/html/utnfra-tssi-pss2-mundogamer/dist/EcomerceJuegosTP /var/www/html/utnfra-tssi-pss2-mundogamer/dist/EcomerceJuegosTP/EcomerceJuegosTP
 #COPY --from=php-build /usr/local/include/php/ext/ /usr/local/include/php/ext/
 #COPY --from=php-build /usr/local/etc/php/conf.d/ /usr/local/etc/php/conf.d/
 #COPY --from=php-build /usr/local/lib/php/extensions/ /usr/local/lib/php/extensions/
@@ -58,7 +57,3 @@ run ln -s /var/www/html/dist/EcomerceJuegosTP /var/www/html/dist/EcomerceJuegosT
 #    /usr/lib/x86_64-linux-gnu/libzip.so.4 \
 #    /usr/lib/x86_64-linux-gnu/
 RUN chown -R www-data: $PWD
-# Heroku Troubleshooting
-RUN apt-get update && apt-get install -y curl openssh-server openssh-client iproute2 python3
-ADD cd_assets/heroku-exec.sh /app/.profile.d/heroku-exec.sh
-ENTRYPOINT ["bash","/app/.profile.d/heroku-exec.sh","&&","apache2-foreground"]

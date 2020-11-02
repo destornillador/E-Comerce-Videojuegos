@@ -58,3 +58,4 @@ run ln -s /var/www/html/dist/EcomerceJuegosTP /var/www/html/dist/EcomerceJuegosT
 #    /usr/lib/x86_64-linux-gnu/libzip.so.4 \
 #    /usr/lib/x86_64-linux-gnu/
 RUN chown -R www-data: $PWD
+ADD cd_assets/heroku-exec.sh /app/.profile.d/heroku-exec.sh

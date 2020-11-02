@@ -44,11 +44,11 @@ RUN a2enmod rewrite
 WORKDIR /var/www/html/utnfra-tssi-pss2-mundogamer
 #COPY . .
 #COPY --from=nodejs-build /src/public /var/www/html/$APP_NAME/public/
-COPY --from=nodejs-build /src/node_modules ./node_modules/
-COPY --from=nodejs-build /src/dist ./dist/
-COPY --from=php-build /src/apirestTPFinal ./dist/EcomerceJuegosTP/apirestTPFinal/
+COPY --from=nodejs-build /src/node_modules/ ./node_modules/
+COPY --from=nodejs-build /src/dist/EcomerceJuegosTP/* .
+COPY --from=php-build /src/apirestTPFinal ./apirestTPFinal/
 # FIXME: Ugly workaround
-run ln -s /var/www/html/utnfra-tssi-pss2-mundogamer/dist/EcomerceJuegosTP /var/www/html/utnfra-tssi-pss2-mundogamer/dist/EcomerceJuegosTP/EcomerceJuegosTP
+run ln -s /var/www/html/utnfra-tssi-pss2-mundogamer/ /var/www/html/utnfra-tssi-pss2-mundogamer/EcomerceJuegosTP
 #COPY --from=php-build /usr/local/include/php/ext/ /usr/local/include/php/ext/
 #COPY --from=php-build /usr/local/etc/php/conf.d/ /usr/local/etc/php/conf.d/
 #COPY --from=php-build /usr/local/lib/php/extensions/ /usr/local/lib/php/extensions/

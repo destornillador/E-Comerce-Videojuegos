@@ -61,3 +61,4 @@ RUN chown -R www-data: $PWD
 # Heroku Troubleshooting
 RUN apt-get update && apt-get install -y curl openssh-server openssh-client iproute2 python3
 ADD cd_assets/heroku-exec.sh /app/.profile.d/heroku-exec.sh
+ENTRYPOINT ["bash","/app/.profile.d/heroku-exec.sh","&&","apache2-foreground"]

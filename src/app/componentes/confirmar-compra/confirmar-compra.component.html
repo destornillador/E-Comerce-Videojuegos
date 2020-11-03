@@ -1,0 +1,55 @@
+<mat-card>
+    <mat-card-title>Tu pedido: </mat-card-title>
+    <mat-card-content>
+        <div class="row">
+            <div class="col-xl-9">
+                <h4>Producto</h4>
+            </div>
+            <div class="col-xl-3">
+                <h4>Sub Total</h4>
+            </div>
+        </div>
+        <div *ngFor="let carrito of data.lista">
+            <div class="row">
+                <div class="col-xl-9">
+                    <h4>{{carrito.titulo}}</h4>
+                </div>
+                <div class="col-xl-3">
+                    <h4>${{carrito.precio}} x {{carrito.cantidad}}</h4>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="data.tieneCuotas" class="row">
+                <div class="col-xl-9">
+                    <h4>Cuotas</h4>
+                </div>
+                <div class="col-xl-3">
+                    <h4>{{data.cuota.numero}} x {{data.cuota.interes}}%</h4>
+                </div>
+        </div>
+        <div *ngIf="data.tieneEnvio" class="row">
+                <div class="col-xl-9">
+                    <h4>Envio</h4>
+                </div>
+                <div class="col-xl-3">
+                    <h4>${{data.envio.precio}}</h4>
+                </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-9">
+                <h4>Total</h4>
+            </div>
+            <div class="col-xl-3">
+                <h4>${{data.total}}</h4>
+            </div>
+        </div>
+        <div style="text-align: center;">
+                <button style="margin-right: 10px" class="btn btn-danger btn-lg" (click)="cancelar()">
+                            Cancelar
+                </button>
+                <button  style="margin-left: 10px" class="btn btn-primary btn-lg" (click)="confirmar()">
+                            Confirmar
+                </button>
+        </div>
+    </mat-card-content>
+</mat-card>

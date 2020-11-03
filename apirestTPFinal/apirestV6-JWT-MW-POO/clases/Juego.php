@@ -54,6 +54,19 @@ class Juego
 			return $consulta->fetchAll(PDO::FETCH_CLASS, "Juego");		
 	}
 
+    public static function TraerJuegosCarrito($ids)
+    {
+        $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+			$script = "select J.*,G.descripcion as genero,P.descripcion as plataforma, F.descripcion as formato from juego as J
+                       inner join plataforma as P on J.plataformaId = P.id
+                       inner join genero as G on J.generoId = G.id
+                       inner join formato as F on J.formatoId = F.id 
+                       where J.id in (".$ids.")";
+            $consulta =$objetoAccesoDato->RetornarConsulta($script);
+			$consulta->execute();			
+			return $consulta->fetchAll(PDO::FETCH_CLASS, "Juego");		
+    }
+
     public static function TraerJuegoDatos($id)
 	{
 			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
@@ -76,11 +89,20 @@ class Juego
                $consulta->execute();		
                return $objetoAccesoDato->RetornarUltimoIdInsertado();
     }
-    public static function ActualizarJuegoParametros($id,$titulo,$precio,$descripcion,$stock,$fotoNombre)
+    public static function GuardarFoto($foto,$id)
+    {
+        $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+        $consulta =$objetoAccesoDato->RetornarConsulta("Update juego
+               set foto = '$foto'
+               where id = {$id}");
+        
+        $consulta->execute();		
+    }
+    public static function ActualizarJuegoParametros($id,$titulo,$precio,$descripcion,$stock)
     {
                $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
                $consulta =$objetoAccesoDato->RetornarConsulta("Update juego
-               set titulo = '$titulo', descripcion = '$descripcion', precio = {$precio}, stock = {$stock},foto = '$fotoNombre'
+               set titulo = '$titulo', descripcion = '$descripcion', precio = {$precio}, stock = {$stock}
                where id = {$id}");
                
                $consulta->execute();		

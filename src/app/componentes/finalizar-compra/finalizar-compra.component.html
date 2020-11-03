@@ -1,0 +1,138 @@
+<app-menu (valor)="AbrirModal($event)"></app-menu>
+<div class="flexbox-container"> 
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <mat-card>
+                <mat-card-title>Detalle de la facturación: </mat-card-title>
+                <mat-card-content>
+                    <form [formGroup]="compraForm">
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <mat-form-field>
+                                    <input type="text" matInput [(ngModel)]="nombre" formControlName="nombre" readonly>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-xl-6">
+                                <mat-form-field>
+                                    <input type="text" matInput [(ngModel)]="apellido" formControlName="apellido" readonly>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-xl-6">
+                                <mat-form-field>
+                                    <input type="text" matInput [(ngModel)]="email" formControlName="email" readonly>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-xl-6">
+                                <mat-form-field>
+                                    <input type="text" matInput [(ngModel)]="telefono" formControlName="telefono" readonly>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-xl-12">
+                                <mat-form-field>
+                                    <mat-select (selectionChange)="cambiarRequerimientosDireccion()" 
+                                    placeholder="Seleccione tipo de retiro" [(ngModel)]="retiro" formControlName="tipoRetiro"
+                                    required>
+                                        <mat-option *ngFor="let retiro of retiros" [value]="retiro">
+                                        {{retiro.descripcion}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="formErrors.tipoRetiro">{{formErrors.tipoRetiro}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="retiro != null && retiro.id == 1" class="col-xl-6">
+                                <mat-form-field>
+                                    <input type="text" matInput placeholder="Ingrese dirección" [(ngModel)]="direccion" formControlName="direccion">
+                                    <mat-error *ngIf="formErrors.direccion">{{formErrors.direccion}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="retiro != null && retiro.id == 1" class="col-xl-6">
+                                <mat-form-field>
+                                    <mat-select placeholder="Seleccione localidad" [(ngModel)]="zona" formControlName="zona"
+                                    required>
+                                        <mat-option *ngFor="let zona of zonas" [value]="zona">
+                                        {{zona.descripcion}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="formErrors.zona">{{formErrors.zona}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-xl-4">
+                                <mat-form-field>
+                                    <mat-select (selectionChange)="cambiarRequerimientosPago()"
+                                    placeholder="Seleccione tipo de pago" [(ngModel)]="pago" formControlName="pago"
+                                    required>
+                                        <mat-option *ngFor="let pago of pagos" [value]="pago">
+                                        {{pago.descripcion}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="formErrors.pago">{{formErrors.pago}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-xl-4">
+                                <mat-form-field>
+                                    <input type="number" matInput placeholder="Ingrese N° de tarjeta" [(ngModel)]="numeroTarjeta" formControlName="numeroTarjeta">
+                                    <mat-error *ngIf="formErrors.numeroTarjeta">{{formErrors.numeroTarjeta}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-xl-4">
+                                <mat-form-field>
+                                    <input type="number" matInput placeholder="Ingrese DNI" [(ngModel)]="dni" formControlName="dni">
+                                    <mat-error *ngIf="formErrors.dni">{{formErrors.dni}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="pago != null && pago.id == 2" class="col-xl-4">
+                                <mat-form-field>
+                                    <mat-select placeholder="Seleccione cantidad de cuotas" [(ngModel)]="cuota" formControlName="cuota"
+                                    required>
+                                        <mat-option *ngFor="let cuota of cuotas" [value]="cuota">
+                                        {{cuota.numero}} interes {{cuota.interes}}%
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="formErrors.cuota">{{formErrors.cuota}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div style="text-align: center">
+                        <button class="btn btn-primary btn-lg" (click)="finalizar()">
+                        Finalizar Compra
+                        </button>
+                    </div>
+                    </form>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <!--<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+            <mat-card>
+                <mat-card-title>Tu pedido: </mat-card-title>
+                <mat-card-content>
+                    <div class="row">
+                        <div class="col-xl-9">
+                            <h4>Producto</h4>
+                        </div>
+                        <div class="col-xl-3">
+                            <h4>Sub Total</h4>
+                        </div>
+                    </div>
+                    <div *ngFor="let carrito of lista">
+                        <div class="row">
+                            <div class="col-xl-9">
+                                <h4>{{carrito.titulo}}</h4>
+                            </div>
+                            <div class="col-xl-3">
+                                <h4>${{carrito.precio}} x {{carrito.cantidad}}</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-9">
+                            <h4>Total</h4>
+                        </div>
+                        <div class="col-xl-3">
+                            <h4>${{total}}</h4>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>-->
+    </div>
+</div>

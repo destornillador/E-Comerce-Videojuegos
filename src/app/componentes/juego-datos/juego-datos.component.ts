@@ -58,6 +58,28 @@ export class JuegoDatosComponent implements OnInit {
     })
   }
   
+  AgregarCarrito(){
+    var carrito = localStorage.getItem('Carrito');
+    if(carrito != null){
+      var juegosCarrito = JSON.parse(carrito);
+      for(var i = 0; i < juegosCarrito.length; i++){
+        if(juegosCarrito[i] == this.juego.id){
+          alert("Este articulo ya fue agregado");
+          return;
+        }
+      }
+      juegosCarrito.push(this.juego.id);
+      localStorage.setItem("Carrito", JSON.stringify(juegosCarrito));
+      alert("Agregado al carrito");
+      this.router.navigate(['/Principal']);
+    }
+    else{
+      localStorage.setItem("Carrito", JSON.stringify([this.juego.id]));
+      alert("Agregado al carrito");
+      this.router.navigate(['/Principal']);
+    }
+  }
+
   AbrirModal(event: any) {
     if(event == 1){
       const dialogConfig = new MatDialogConfig();

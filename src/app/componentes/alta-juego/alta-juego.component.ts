@@ -74,9 +74,30 @@ export class AltaJuegoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.formatos = [{id:1,valor:"Físico"},{id:2,valor:"Digital"}];
-    this.plataformas = [{id:1,valor:"Xbox One"},{id:2,valor:"PS4"},{id:3,valor:"Switch"}];
-    this.generos = [{id:1,valor:"Shooter"},{id:2,valor:"Plataformas"},{id:3,valor:"RPG"},{id:4,valor:"Carreras"},{id:5,valor:"Peleas"}];
+    this.juegoService.listarFormatosPromesa()
+    .then((datos) => {
+        this.formatos = datos;
+      })
+      .catch(
+      (noSeEncontroUsuario) => { alert("Error en el sistema"); }
+      );
+    this.juegoService.listarGenerosPromesa()
+    .then((datos) => {
+        this.generos = datos;
+      })
+      .catch(
+      (noSeEncontroUsuario) => { alert("Error en el sistema"); }
+      );
+    this.juegoService.listarPlataformasPromesa()
+    .then((datos) => {
+        this.plataformas = datos;
+      })
+      .catch(
+      (noSeEncontroUsuario) => { alert("Error en el sistema"); }
+      );
+    //this.formatos = [{id:1,valor:"Físico"},{id:2,valor:"Digital"}];
+    //this.plataformas = [{id:1,valor:"Xbox One"},{id:2,valor:"PS4"},{id:3,valor:"Switch"}];
+    //this.generos = [{id:1,valor:"Shooter"},{id:2,valor:"Plataformas"},{id:3,valor:"RPG"},{id:4,valor:"Carreras"},{id:5,valor:"Peleas"}];
     this.datos = this.data;
     this.registroForm = this.crearForm();
   }
@@ -120,21 +141,15 @@ export class AltaJuegoComponent implements OnInit {
 
   registrar(){
     if (this.registroForm.invalid) return alert("Complete los campos requeridos");
-    var fotoNombre = "";
-    var arrayNombre : String[] = this.titulo.split(" ");
-    console.log(fotoNombre);
-    for(var i = 0;i < arrayNombre.length;i++){
-      fotoNombre = fotoNombre + arrayNombre[i];
-    }
-    fotoNombre = fotoNombre+".jpg"
-    var juego = new Juego(0,this.titulo,this.precio,this.plataforma,this.genero,this.formato,this.stock,"","","",fotoNombre,this.descripcion);
+    
+    var juego = new Juego(0,this.titulo,this.precio,this.plataforma,this.genero,this.formato,this.stock,"","","","",this.descripcion);
 
     this.juegoService.RegistrarJuego(juego,this.file)
     .then((datos) => {
       if (datos == true) 
-      {
         alert("Se registro con exito");
-      }
+      else
+        alert("No se pudo cargar el juego");
       })
       .catch(
       (noSeEncontroUsuario) => { alert("Error en el sistema"); }
@@ -144,21 +159,9 @@ export class AltaJuegoComponent implements OnInit {
   Actualizar(){
     if (this.registroForm.invalid) return alert("Complete los campos requeridos");
     
-    if(this.file != null){
-      var fotoNombre = "";
-      var arrayNombre : String[] = this.datos.juegoActualizar.titulo.split(" ");
-      console.log(fotoNombre);
-      for(var i = 0;i < arrayNombre.length;i++){
-        fotoNombre = fotoNombre + arrayNombre[i];
-      }
-      fotoNombre = fotoNombre+".jpg"
-    }
-    else{
-      fotoNombre = this.datos.juegoActualizar.foto;
-    }
     var juego = new Juego(this.datos.juegoActualizar.id,this.datos.juegoActualizar.titulo,this.datos.juegoActualizar.precio,
     this.datos.juegoActualizar.plataformaId,this.datos.juegoActualizar.generoId,this.datos.juegoActualizar.formatoId,this.datos.juegoActualizar.stock
-    ,"","","",fotoNombre,this.datos.juegoActualizar.descripcion);
+    ,"","","",this.datos.juegoActualizar.foto,this.datos.juegoActualizar.descripcion);
 
     this.juegoService.ActualizarJuego(juego,this.updateFoto,this.file)
     .then((datos) => {

@@ -19,6 +19,18 @@ class JuegoApi extends Juego
 
        return $newresponse;
     }
+    public function TraerCarrito($request, $response, $args) 
+    {
+       $objDelaRespuesta= new stdclass();
+       
+       $ArrayDeParametros = $request->getParsedBody();
+       $ids= $ArrayDeParametros["ids"];
+       $Juego = Juego::TraerJuegosCarrito($ids);
+       
+       $newresponse = $response->withJson($Juego, 200);
+
+       return $newresponse;
+    }
 
     public function TraerJuego($request, $response, $args) 
     {
@@ -46,20 +58,16 @@ class JuegoApi extends Juego
        $formatoId = $ArrayDeParametros["formatoId"];
        $descripcion = $ArrayDeParametros["descripcion"];
        $stock = $ArrayDeParametros["stock"];
-       $fotoNombre = $ArrayDeParametros["fotoNombre"];
        
+       $ultimoId =  Juego::InsertarJuegoParametros($titulo,$precio,$plataformaId,$generoId,$formatoId,$descripcion,$stock,"");
+       $objDelaRespuesta->respuesta=$ultimoId;
+
        $destino="../../src/assets/portadas/";
-       //$destino="../../assets/portadas/";
-       //$destino="./fotos/";
        $archivos = $request->getUploadedFiles();
-       //$nombreAnterior=$archivos['foto']->getClientFilename();
-       //$extension= explode(".", $nombreAnterior);
-       //$extension=array_reverse($extension);
-       //$NombreFoto = $Usuario.'.'.$extension[0];
+       $fotoNombre = $ultimoId.".jpg";
        $archivos['foto']->moveTo($destino.$fotoNombre);
 
-       $ultimoId =  Juego::InsertarJuegoParametros($titulo,$precio,$plataformaId,$generoId,$formatoId,$descripcion,$stock,$fotoNombre);
-       $objDelaRespuesta->respuesta=$ultimoId;
+       Juego::GuardarFoto($fotoNombre,$ultimoId);
        
        return $response->withJson($objDelaRespuesta, 200);
    }
@@ -79,13 +87,11 @@ class JuegoApi extends Juego
        
        if($actualizar == "Si"){
         $destino="../../src/assets/portadas/";
-        //$destino="../../assets/portadas/";
-        //$destino="./fotos/";
         $archivos = $request->getUploadedFiles();
         $archivos['foto']->moveTo($destino.$fotoNombre);
        }
 
-       $consulta =  Juego::ActualizarJuegoParametros($id,$titulo,$precio,$descripcion,$stock,$fotoNombre);
+       $consulta =  Juego::ActualizarJuegoParametros($id,$titulo,$precio,$descripcion,$stock);
        $objDelaRespuesta->respuesta=$consulta;
        
     

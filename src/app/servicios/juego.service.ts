@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { Juego } from '../clases/juego';
+import { VentaJuego } from '../clases/ventaJuego';
+import { Genero } from '../clases/genero';
+import { Formato } from '../clases/formato';
+import { Plataforma } from '../clases/plataforma';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +21,23 @@ export class JuegoService {
           for (let unDato of datos) {
             miArray.push(new Juego(unDato.id, unDato.titulo, unDato.precio, unDato.plataformaId,unDato.generoId,unDato.formatoId,unDato.stock,
             unDato.plataforma,unDato.genero,unDato.formato,unDato.foto,unDato.descripcion));                        
+          }
+          resolve(miArray);
+        })
+        .catch(error => { console.log(error); });
+    }
+    );
+    return promesa;
+  }
+  public listarCarritoPromesa(ids): Promise<Array<VentaJuego>> {
+    let promesa: Promise<Array<VentaJuego>> = new Promise((resolve, reject) => {
+      this.miHttp.traerCarrito(ids)
+        .then(datos => {
+          console.log(datos);
+          let miArray: Array<VentaJuego> = new Array<VentaJuego>();
+          for (let unDato of datos) {
+            miArray.push(new VentaJuego(unDato.id,0,0,unDato.precio,1, unDato.titulo,unDato.stock,
+            unDato.plataforma,unDato.formato));                        
           }
           resolve(miArray);
         })
@@ -45,9 +66,14 @@ export class JuegoService {
     
     let result: Promise<boolean> = this.miHttp.entregarJuego(juego,file)
       .then(datos => {
-        return true;
+        debugger;
+        if(datos.respuesta != null)
+          return true;
+        else
+          return false;
       })
       .catch(error => {
+        debugger;
         console.log(error);
         return false;
       });
@@ -66,4 +92,52 @@ export class JuegoService {
     return result;
   }
   
+  public listarGenerosPromesa(): Promise<Array<Genero>> {
+    let promesa: Promise<Array<Genero>> = new Promise((resolve, reject) => {
+      this.miHttp.buscarGeneros()
+        .then(datos => {
+          console.log(datos);
+          let miArray: Array<Genero> = new Array<Genero>();
+          for (let unDato of datos) {
+            miArray.push(new Genero(unDato.id,unDato.descripcion));                        
+          }
+          resolve(miArray);
+        })
+        .catch(error => { console.log(error); });
+    }
+    );
+    return promesa;
+  }
+  public listarPlataformasPromesa(): Promise<Array<Plataforma>> {
+    let promesa: Promise<Array<Plataforma>> = new Promise((resolve, reject) => {
+      this.miHttp.buscarPlataformas()
+        .then(datos => {
+          console.log(datos);
+          let miArray: Array<Plataforma> = new Array<Plataforma>();
+          for (let unDato of datos) {
+            miArray.push(new Plataforma(unDato.id,unDato.descripcion));                        
+          }
+          resolve(miArray);
+        })
+        .catch(error => { console.log(error); });
+    }
+    );
+    return promesa;
+  }
+  public listarFormatosPromesa(): Promise<Array<Formato>> {
+    let promesa: Promise<Array<Formato>> = new Promise((resolve, reject) => {
+      this.miHttp.buscarFormatos()
+        .then(datos => {
+          console.log(datos);
+          let miArray: Array<Formato> = new Array<Formato>();
+          for (let unDato of datos) {
+            miArray.push(new Formato(unDato.id,unDato.descripcion));                        
+          }
+          resolve(miArray);
+        })
+        .catch(error => { console.log(error); });
+    }
+    );
+    return promesa;
+  }
 }

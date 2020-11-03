@@ -1,0 +1,28 @@
+<app-menu (valor)="AbrirModal($event)"></app-menu>
+
+<table *ngIf="listaCompras.length > 0" class='table table-hover table-responsive table-fixed'>
+  <thead>
+    <tr style="font-size: 25px;font-family: Georgia, 'Times New Roman', serif;">
+      <th>Id compra</th>
+      <th>Cliente</th>
+      <th>Tipo de retiro</th>
+      <th>Precio</th>
+      <th>Tipo de pago</th>
+      <th>Fecha</th>
+      <th>Estado</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let compra of listaCompras" >
+    <tr style="font-size: 25px;font-family: Georgia, 'Times New Roman', serif;">
+      <td style="text-align: center">{{compra.id}}</td>
+      <td>{{compra.nombre}} {{compra.apellido}} </td> 
+      <td>{{compra.tipoRetiro}} </td> 
+      <td>${{compra.precioTotal}} </td> 
+      <td>{{compra.formaPago}} </td> 
+      <td>{{compra.fecha}} </td> 
+      <td>{{compra.descripcionEstado}} </td>
+      <td><button class="btn btn-info" (click)="verDatos(compra)" style="width: 100%">Ver datos</button></td>
+    </tr> 
+    </tbody>
+</table>
+<h2 *ngIf="listaCompras.length == 0" > No hay compras disponibles</h2>

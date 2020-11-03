@@ -1,0 +1,19 @@
+.row{
+    margin: auto;
+}
+.table{
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.mat-card{
+ width: 100% ;
+ padding-left: 35%;  
+}
+
+.botonCantidad{
+    width: 40%;
+}
+.botonCantidadElegir{
+    width: 20%;
+    background-color: white;
+}

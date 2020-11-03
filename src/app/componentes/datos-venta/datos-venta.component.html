@@ -1,0 +1,45 @@
+<div class="flexbox-container"> 
+    <div class="row">
+        <div >
+            <mat-card *ngIf="venta">
+                <mat-card-title>Datos de venta </mat-card-title>
+                <mat-card-title>Cliente: {{venta.nombre}} {{venta.apellido}}</mat-card-title>
+                <mat-card-title>
+                    Tipo de retiro: {{venta.tipoRetiro}} <span *ngIf="venta.tipoRetiroId == 1"> Dirección: {{venta.domicilio}} Zona: {{venta.zona}}
+                    </span>
+                </mat-card-title>
+                <mat-card-content>
+                    <table *ngIf="listaArticulos.length > 0" class='table table-hover table-responsive table-fixed'>
+                        <thead>
+                            <tr style="font-size: 25px;font-family: Georgia, 'Times New Roman', serif;">
+                            <th>Titulo</th>
+                            <th>Formato</th>
+                            <th>Plataforma</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let articulo of listaArticulos" >
+                            <tr style="font-size: 25px;font-family: Georgia, 'Times New Roman', serif;">
+                            <td>{{articulo.titulo}}</td> 
+                            <td>{{articulo.formato}} </td> 
+                            <td>{{articulo.plataforma}} </td> 
+                            <td style="text-align: center">{{articulo.cantidad}} </td> 
+                            <td>${{articulo.precio}} </td> 
+                            </tr> 
+                        </tbody>
+                    </table>
+                </mat-card-content>
+                <mat-card-title>Precio Total ${{venta.precioTotal}} 
+                    <span *ngIf="venta.tipoRetiroId == 1">(con envio) </span>
+                    <span *ngIf="venta.formaPagoId == 2"> Cuotas: {{venta.cuotaNumero}} Interes: {{venta.interes}}</span>
+                </mat-card-title>
+                <mat-card-content>
+                    <h1>Estado {{venta.descripcionEstado}}</h1>
+                    <button *ngIf="(TIPO == '1' || TIPO == '3') && venta.estado != '7' && venta.estado != '8' && venta.estado != '9'" 
+                    (click)="pasarEstado()" class="btn btn-primary btn-lg">Actualizar estado</button>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>

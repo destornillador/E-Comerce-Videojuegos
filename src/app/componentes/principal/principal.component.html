@@ -6,29 +6,19 @@
     <label for="staticEmail" class="col-form-label">Consola: </label>
     <div class="col">
       <select [(ngModel)]="plataforma" name="plataforma" class="form-control">
-            <option value="">Todos</option>
-            <option value="1">Xbox One</option>
-            <option value="2">PS4</option>
-            <option value="3">Switch</option>
+            <option *ngFor="let plataforma of plataformas" [value]="plataforma.id">{{plataforma.descripcion}}</option>
         </select>
     </div>
     <label for="staticEmail" class="col-form-label">Formato: </label>
     <div class="col">
     <select [(ngModel)]="formato" name="formato" class="form-control">
-            <option value="">Todos</option>
-            <option value="1">Físico</option>
-            <option value="2">Digital</option>
+        <option *ngFor="let formato of formatos" [value]="formato.id">{{formato.descripcion}}</option>
     </select>
     </div>
     <label for="staticEmail" class="col-form-label">Genero: </label>
     <div class="col">
         <select [(ngModel)]="genero" name="genero" class="form-control">
-            <option value="">Todos</option>
-            <option value="1">Shooter</option>
-            <option value="2">Plataformas</option>
-            <option value="3">RPG</option>
-            <option value="4">Carreras</option>
-            <option value="5">Peleas</option>
+            <option *ngFor="let genero of generos" [value]="genero.id">{{genero.descripcion}}</option>
         </select>
     </div>
     <label for="staticEmail" class="col-form-label">Ordenar por: </label>

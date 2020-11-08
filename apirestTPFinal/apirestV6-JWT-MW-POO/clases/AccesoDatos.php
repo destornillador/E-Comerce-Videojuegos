@@ -7,9 +7,9 @@ class AccesoDatos
     private function __construct()
     {
         $dbHost=isset($_ENV["DB_HOST"]) ? $_ENV["DB_HOST"] : 'localhost';
-        $dbName=$_ENV["DB_NAME"] ? $_ENV["DB_NAME"] : 'ecomerce-juegos';
-        $dbUser=$_ENV["DB_USER"] ? $_ENV["DB_USER"] : 'root';
-        $dbPass=$_ENV["DB_PASS"] ? $_ENV["DB_PASS"] : '';
+        $dbName=isset($_ENV["DB_NAME"]) ? $_ENV["DB_NAME"] : 'ecomerce-juegos';
+        $dbUser=isset($_ENV["DB_USER"]) ? $_ENV["DB_USER"] : 'root';
+        $dbPass=isset($_ENV["DB_PASS"]) ? $_ENV["DB_PASS"] : '';
 
         try {
             $this->objetoPDO = new PDO('mysql:host=' . $dbHost . ';dbname=' . $dbName . ';charset=utf8', $dbUser, $dbPass, array(PDO::ATTR_EMULATE_PREPARES => false,PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));

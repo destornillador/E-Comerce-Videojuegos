@@ -12,5 +12,14 @@ class Genero
 			$consulta->execute();			
 			return $consulta->fetchAll(PDO::FETCH_CLASS, "Genero");		
 	}
+	public static function InsertarGeneroParametros($descripcion)
+    {
+               $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+               $consulta =$objetoAccesoDato->RetornarConsulta("INSERT into genero(descripcion)
+               values ('$descripcion')");
+               
+               $consulta->execute();		
+               return $objetoAccesoDato->RetornarUltimoIdInsertado();
+    }
 }
 ?>

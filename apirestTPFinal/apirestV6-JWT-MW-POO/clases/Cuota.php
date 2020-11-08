@@ -13,5 +13,14 @@ class Cuota
 			$consulta->execute();			
 			return $consulta->fetchAll(PDO::FETCH_CLASS, "Cuota");		
 	}
+	public static function InsertarCuotaParametros($numero,$interes)
+    {
+               $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+               $consulta =$objetoAccesoDato->RetornarConsulta("INSERT into cuota(numero,interes)
+               values ('$numero','$interes')");
+               
+               $consulta->execute();		
+               return $objetoAccesoDato->RetornarUltimoIdInsertado();
+    }
 }
 ?>

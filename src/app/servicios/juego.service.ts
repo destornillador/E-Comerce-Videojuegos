@@ -66,14 +66,12 @@ export class JuegoService {
     
     let result: Promise<boolean> = this.miHttp.entregarJuego(juego,file)
       .then(datos => {
-        debugger;
         if(datos.respuesta != null)
           return true;
         else
           return false;
       })
       .catch(error => {
-        debugger;
         console.log(error);
         return false;
       });
@@ -139,5 +137,21 @@ export class JuegoService {
     }
     );
     return promesa;
+  }
+
+  public AltaABM(data:any): Promise<boolean> {
+    
+    let result: Promise<boolean> = this.miHttp.altaAbm(data)
+      .then(datos => {
+        if(datos.respuesta != null)
+          return true;
+        else
+          return false;
+      })
+      .catch(error => {
+        console.log(error);
+        return false;
+      });
+    return result;
   }
 }

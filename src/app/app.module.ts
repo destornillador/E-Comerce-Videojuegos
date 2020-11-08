@@ -20,6 +20,10 @@ import { ListaEmpleadosComponent } from './componentes/lista-empleados/lista-emp
 import { CarritoComponent } from './componentes/carrito/carrito.component';
 import { FinalizarCompraComponent } from './componentes/finalizar-compra/finalizar-compra.component';
 import { ListaComprasComponent } from './componentes/lista-compras/lista-compras.component';
+import { ListaGenerosComponent } from './componentes/ABM/lista-generos/lista-generos.component';
+import { ListaCuotasComponent } from './componentes/ABM/lista-cuotas/lista-cuotas.component';
+import { ListaPlataformasComponent } from './componentes/ABM/lista-plataformas/lista-plataformas.component';
+import { ListaZonasComponent } from './componentes/ABM/lista-zonas/lista-zonas.component';
 
 //Modals
 import { LoginComponent } from './componentes/login/login.component';
@@ -27,6 +31,7 @@ import { RegistroComponent } from './componentes/registro/registro.component';
 import { AltaJuegoComponent } from './componentes/alta-juego/alta-juego.component';
 import { ConfirmarCompraComponent } from './componentes/confirmar-compra/confirmar-compra.component';
 import { DatosVentaComponent } from './componentes/datos-venta/datos-venta.component';
+import { AltaAbmComponent } from './componentes/ABM/alta-abm/alta-abm.component';
 
 //Servicios
 import {HttpService} from './servicios/http.service';
@@ -40,7 +45,8 @@ import {VerificarService} from './servicios/verificar.service';
     LoginComponent,
     RegistroComponent,
     AltaJuegoComponent,
-    ConfirmarCompraComponent
+    ConfirmarCompraComponent,
+    AltaAbmComponent
   ],
   declarations: [
     AppComponent,
@@ -57,7 +63,12 @@ import {VerificarService} from './servicios/verificar.service';
     FinalizarCompraComponent,
     ConfirmarCompraComponent,
     ListaComprasComponent,
-    DatosVentaComponent
+    DatosVentaComponent,
+    ListaGenerosComponent,
+    ListaCuotasComponent,
+    ListaPlataformasComponent,
+    ListaZonasComponent,
+    AltaAbmComponent
   ],
   imports: [
     BrowserModule,

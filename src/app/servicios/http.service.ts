@@ -298,4 +298,19 @@ export class HttpService {
     header.append('Content-Type', 'application/json');
     return this.http.post(this.URl+"RecuperarToken", formData,{headers: header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
+
+  altaAbm(data:any){
+    
+    const formData = new FormData()
+    formData.append('id',data.id);
+    formData.append('descripcion',data.descripcion);
+    formData.append('precio',data.precio);
+    formData.append('numero',data.numero);
+    formData.append('interes',data.interes);
+
+    let header = new HttpHeaders();
+    header.append('Content-Type','application/json');
+    
+    return this.http.post(this.URl+data.url,formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+  }
 }

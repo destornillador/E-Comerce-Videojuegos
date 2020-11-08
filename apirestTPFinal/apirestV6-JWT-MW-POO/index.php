@@ -105,6 +105,14 @@ $app->group('/ecomerce', function () {
       $this->post('/listarTipoRetiros', \TipoRetiroApi::class . ':Traer')->add(\MWparaCORS::class . ':HabilitarCORS8080');
       $this->post('/listarFormaPagos', \FormaPagoApi::class . ':Traer')->add(\MWparaCORS::class . ':HabilitarCORS8080');
       $this->post('/listarCuotas', \CuotaApi::class . ':Traer')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/ingresarZona', \ZonaApi::class . ':CargarUno')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/actualizarZona', \ZonaApi::class . ':Actualizar')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/ingresarPlataforma', \PlataformaApi::class . ':CargarUno')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/actualizarPlataforma', \PlataformaApi::class . ':Actualizar')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/ingresarGenero', \GeneroApi::class . ':CargarUno')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/actualizarGenero', \GeneroApi::class . ':Actualizar')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/ingresarCuota', \CuotaApi::class . ':CargarUno')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/actualizarCuota', \CuotaApi::class . ':Actualizar')->add(\MWparaCORS::class . ':HabilitarCORS8080');
 
       $this->post('/CrearToken', \UsuarioApi::class . ':CrearToken')->add(\MWparaCORS::class . ':HabilitarCORSTodos');
       $this->post('/VerificarToken', \UsuarioApi::class . ':VerificarToken')->add(\MWparaCORS::class . ':HabilitarCORSTodos');

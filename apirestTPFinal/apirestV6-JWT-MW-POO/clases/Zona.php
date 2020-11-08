@@ -13,5 +13,14 @@ class Zona
 			$consulta->execute();			
 			return $consulta->fetchAll(PDO::FETCH_CLASS, "Zona");		
 	}
+	public static function InsertarZonaParametros($descripcion,$precio)
+    {
+               $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+               $consulta =$objetoAccesoDato->RetornarConsulta("INSERT into zona(descripcion,precio)
+               values ('$descripcion','$precio')");
+               
+               $consulta->execute();		
+               return $objetoAccesoDato->RetornarUltimoIdInsertado();
+    }
 }
 ?>

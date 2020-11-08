@@ -12,5 +12,14 @@ class Plataforma
 			$consulta->execute();			
 			return $consulta->fetchAll(PDO::FETCH_CLASS, "Plataforma");		
 	}
+	public static function InsertarPlataformaParametros($descripcion)
+    {
+               $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+               $consulta =$objetoAccesoDato->RetornarConsulta("INSERT into plataforma(descripcion)
+               values ('$descripcion')");
+               
+               $consulta->execute();		
+               return $objetoAccesoDato->RetornarUltimoIdInsertado();
+    }
 }
 ?>

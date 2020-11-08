@@ -7,8 +7,13 @@ import { Observable } from 'rxjs';
 })
 export class HttpService {
 
-  URl = "http://localhost:8080/EcomerceJuegosTP/apirestTPFinal/apirestV6-JWT-MW-POO/ecomerce/";
-  
+  URI = "https://utnfra-tssi-pss2-mundogamer.herokuapp.com" 
+
+  if (process.env.NODE_ENV !== 'production') {
+    URI = "http://localhost:8080"
+  }
+  URl = URI + /EcomerceJuegosTP/apirestTPFinal/apirestV6-JWT-MW-POO/ecomerce/"\;
+
   constructor(public http: HttpClient) { }
   extraerDatos(respuesta) {
     return respuesta || { };

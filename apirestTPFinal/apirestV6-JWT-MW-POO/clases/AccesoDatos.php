@@ -3,19 +3,16 @@ class AccesoDatos
 {
     private static $ObjetoAccesoDatos;
     private $objetoPDO;
-
-    private dbHost=isset(getenv("DB_HOST")) ? getenv("DB_HOST") : 'localhost';
-    private dbName=isset(getenv("DB_NAME")) ? getenv("DB_NAME") : 'ecomerce-juegos';
-    private dbUser=isset(getenv("DB_USER")) ? getenv("DB_USER") : 'root';
-    private dbPass=isset(getenv("DB_PASS")) ? getenv("DB_PASS") : '';
-
-
+ 
     private function __construct()
     {
-        try { 
-            $this->objetoPDO = new PDO('mysql:host=$DB_HOST;dbname=$DB_NAME;charset=utf8', '$DB_USER', '$DB_PASS', array(PDO::ATTR_EMULATE_PREPARES => false,PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-            //$this->objetoPDO = new PDO('mysql:host=mysql.hostinger.com.ar;dbname=u165458543_final;charset=utf8', 'u165458543_rbal', 'Laboratorio4', array(PDO::ATTR_EMULATE_PREPARES => false,PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-            
+        $dbHost=isset($_ENV["DB_HOST"]) ? $_ENV["DB_HOST"] : 'localhost';
+        $dbName=$_ENV["DB_NAME"] ? $_ENV["DB_NAME"] : 'ecomerce-juegos';
+        $dbUser=$_ENV["DB_USER"] ? $_ENV["DB_USER"] : 'root';
+        $dbPass=$_ENV["DB_PASS"] ? $_ENV["DB_PASS"] : '';
+
+        try {
+            $this->objetoPDO = new PDO('mysql:host=' . $dbHost . ';dbname=' . $dbName . ';charset=utf8', $dbUser, $dbPass, array(PDO::ATTR_EMULATE_PREPARES => false,PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
             $this->objetoPDO->exec("SET CHARACTER SET utf8");
             } 
         catch (PDOException $e) { 

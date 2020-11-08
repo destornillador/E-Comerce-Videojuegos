@@ -17,13 +17,13 @@ COPY . .
 RUN cd apirestTPFinal/composer && \
     composer install --no-dev
 # Compile PHP packages
-#RUN docker-php-ext-install \
+RUN docker-php-ext-install \
 #        bcmath \
 #        gd \
 #        intl \
-#        pdo_mysql \
+        pdo_mysql \
 #        zip \
-#        >> /dev/null 2>&1
+        >> /dev/null 2>&1
 
 
 FROM node:14.8.0-alpine3.12 AS nodejs-build
@@ -47,9 +47,9 @@ COPY --from=nodejs-build /src/dist/EcomerceJuegosTP/* .
 COPY --from=php-build /src/apirestTPFinal ./apirestTPFinal/
 # FIXME: Ugly workaround
 run ln -s /var/www/html/utnfra-tssi-pss2-mundogamer/ /var/www/html/utnfra-tssi-pss2-mundogamer/EcomerceJuegosTP
-#COPY --from=php-build /usr/local/include/php/ext/ /usr/local/include/php/ext/
-#COPY --from=php-build /usr/local/etc/php/conf.d/ /usr/local/etc/php/conf.d/
-#COPY --from=php-build /usr/local/lib/php/extensions/ /usr/local/lib/php/extensions/
+COPY --from=php-build /usr/local/include/php/ext/ /usr/local/include/php/ext/
+COPY --from=php-build /usr/local/etc/php/conf.d/ /usr/local/etc/php/conf.d/
+COPY --from=php-build /usr/local/lib/php/extensions/ /usr/local/lib/php/extensions/
 #COPY --from=php-build \
 #    /usr/lib/x86_64-linux-gnu/libpng16.so.16 \
 #    /usr/lib/x86_64-linux-gnu/libzip.so.4 \

@@ -6,13 +6,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class HttpService {
-
-  URI = "https://utnfra-tssi-pss2-mundogamer.herokuapp.com" 
-
+  URI = "https://utnfra-tssi-pss2-mundogamer.herokuapp.com"; 
   if (process.env.NODE_ENV !== 'production') {
-    URI = "http://localhost:8080"
+    URI = "http://localhost:8080";
   }
-  URl = URI + /EcomerceJuegosTP/apirestTPFinal/apirestV6-JWT-MW-POO/ecomerce/"\;
+  URl = URI + "/EcomerceJuegosTP/apirestTPFinal/apirestV6-JWT-MW-POO/ecomerce/";
 
   constructor(public http: HttpClient) { }
   extraerDatos(respuesta) {

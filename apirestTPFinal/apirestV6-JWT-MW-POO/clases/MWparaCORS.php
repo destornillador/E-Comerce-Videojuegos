@@ -53,6 +53,7 @@ class MWparaCORS
 		// $response->getBody()->write('<p>habilitado HabilitarCORS8080</p>');
    		 return $response
             ->withHeader('Access-Control-Allow-Origin', 'http://localhost:8080')
+            ->withHeader('Access-Control-Allow-Origin', 'https://utnfra-tssi-pss2-mundogamer.herokuapp.com')
             ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
             ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
 	}

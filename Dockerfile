@@ -3,14 +3,6 @@ FROM php:7.3.21-buster AS php-build
 ENV COMPOSER_VERSION="1.10.10"
 RUN curl -sS https://getcomposer.org/installer | \
     php -- --install-dir=/usr/local/bin --filename=composer --version=$COMPOSER_VERSION
-# Install dependencies
-#RUN apt-get update && \
-#	apt-get install -y --no-install-recommends \
-#        git \
-#        libpng-dev \
-#        libicu-dev \
-#        libzip-dev \
-#        unzip
 # Install Composer packages
 WORKDIR /src/
 COPY . .
@@ -18,11 +10,7 @@ RUN cd apirestTPFinal/composer && \
     composer install --no-dev
 # Compile PHP packages
 RUN docker-php-ext-install \
-#        bcmath \
-#        gd \
-#        intl \
         pdo_mysql \
-#        zip \
         >> /dev/null 2>&1
 
 
@@ -50,8 +38,4 @@ run ln -s /var/www/html/utnfra-tssi-pss2-mundogamer/ /var/www/html/utnfra-tssi-p
 COPY --from=php-build /usr/local/include/php/ext/ /usr/local/include/php/ext/
 COPY --from=php-build /usr/local/etc/php/conf.d/ /usr/local/etc/php/conf.d/
 COPY --from=php-build /usr/local/lib/php/extensions/ /usr/local/lib/php/extensions/
-#COPY --from=php-build \
-#    /usr/lib/x86_64-linux-gnu/libpng16.so.16 \
-#    /usr/lib/x86_64-linux-gnu/libzip.so.4 \
-#    /usr/lib/x86_64-linux-gnu/
 RUN chown -R www-data: $PWD

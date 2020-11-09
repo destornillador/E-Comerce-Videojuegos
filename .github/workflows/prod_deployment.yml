@@ -1,11 +1,9 @@
 name: PROD - Deployment
 
-#on: 
-#  push:
-#    branches:
-#      - master
-
-on: [push]
+on: 
+  push:
+    branches:
+      - master
 
 env:
   HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}

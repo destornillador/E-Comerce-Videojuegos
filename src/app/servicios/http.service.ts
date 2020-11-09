@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
 
-  URl = "http://localhost:8080/EcomerceJuegosTP/apirestTPFinal/apirestV6-JWT-MW-POO/ecomerce/";
-  
   constructor(public http: HttpClient) { }
+
   extraerDatos(respuesta) {
     return respuesta || { };
   }
@@ -79,7 +79,7 @@ export class HttpService {
     let header = new HttpHeaders();
     header.append('Content-Type','application/json');
     //return this.http.post(url,paramString).toPromise().then(this.extractData).catch(this.handleError);
-    return this.http.post(this.URl,formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+    return this.http.post(environment.server_url,formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
   traerCarrito(ids){
     const formData = new FormData();
@@ -96,7 +96,7 @@ export class HttpService {
     let header = new HttpHeaders();
     header.append('Content-Type','application/json');
     //return this.http.post(url,paramString).toPromise().then(this.extractData).catch(this.handleError);
-    return this.http.post(this.URl+"getJuego",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+    return this.http.post(environment.server_url+"getJuego",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
   entregarJuego(juego:any,file: any)
   {
@@ -114,7 +114,8 @@ export class HttpService {
 
     let header = new HttpHeaders();
     header.append('Content-Type','application/json');
-    return this.http.post(this.URl+"guardarJuego",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+    
+    return this.http.post(environment.server_url+"guardarJuego",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
   actualizarJuego(juego:any,updateFoto: boolean,file: any)
   {
@@ -134,7 +135,7 @@ export class HttpService {
     let header = new HttpHeaders();
     header.append('Content-Type','application/json');
     
-    return this.http.post(this.URl+"actualizarJuego",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+    return this.http.post(environment.server_url+"actualizarJuego",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
   
   buscarUsuario(usuario:string,clave:string)
@@ -144,7 +145,7 @@ export class HttpService {
     formData.append('contrasenia',clave);
     let header = new HttpHeaders();
     header.append('Content-Type','application/json');
-    return this.http.post(this.URl+"login",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+    return this.http.post(environment.server_url+"login",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
   traerEmpleados()
   { 
@@ -152,7 +153,7 @@ export class HttpService {
     let header = new HttpHeaders();
     header.append('Content-Type','application/json');
     //return this.http.post(url,paramString).toPromise().then(this.extractData).catch(this.handleError);
-    return this.http.post(this.URl+"listarEmpleados",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+    return this.http.post(environment.server_url+"listarEmpleados",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
   entregarCliente(user:any)
   {
@@ -173,7 +174,7 @@ export class HttpService {
     let header = new HttpHeaders();
     header.append('Content-Type','application/json');
     
-    return this.http.post(this.URl+"guardarCliente",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+    return this.http.post(environment.server_url+"guardarCliente",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
   habilitarEmpleado(id:string)
   {
@@ -181,7 +182,7 @@ export class HttpService {
     formData.append('id',id);
     let header = new HttpHeaders()
     header.append('Content-Type', 'application/json');
-    return this.http.post(this.URl+"habilitar", formData,{headers: header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+    return this.http.post(environment.server_url+"habilitar", formData,{headers: header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
   desabilitarEmpleado(id:string)
   {
@@ -189,7 +190,7 @@ export class HttpService {
     formData.append('id',id);
     let header = new HttpHeaders();
     header.append('Content-Type', 'application/json');
-    return this.http.post(this.URl+"desabilitar", formData,{headers: header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+    return this.http.post(environment.server_url+"desabilitar", formData,{headers: header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
   contratarEmpleado(id:string)
   {
@@ -197,7 +198,7 @@ export class HttpService {
     formData.append('id',id);
     let header = new HttpHeaders();
     header.append('Content-Type', 'application/json');
-    return this.http.post(this.URl+"contratar", formData,{headers: header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+    return this.http.post(environment.server_url+"contratar", formData,{headers: header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
 
   traerVentas(usuarioId,estado){
@@ -278,7 +279,7 @@ export class HttpService {
     
     let header = new HttpHeaders()
     header.append('Content-Type', 'application/json');
-    return this.http.post(this.URl+"CrearToken", formData,{headers: header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+    return this.http.post(environment.server_url+"CrearToken", formData,{headers: header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
   verificarToken(token:any)
   { 
@@ -287,7 +288,7 @@ export class HttpService {
     
     let header = new HttpHeaders()
     header.append('Content-Type', 'application/json');
-    return this.http.post(this.URl+"VerificarToken", formData,{headers: header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+    return this.http.post(environment.server_url+"VerificarToken", formData,{headers: header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
   recuperarToken(token:any)
   {
@@ -296,7 +297,7 @@ export class HttpService {
     
     let header = new HttpHeaders()
     header.append('Content-Type', 'application/json');
-    return this.http.post(this.URl+"RecuperarToken", formData,{headers: header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+    return this.http.post(environment.server_url+"RecuperarToken", formData,{headers: header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
 
   altaAbm(data:any){

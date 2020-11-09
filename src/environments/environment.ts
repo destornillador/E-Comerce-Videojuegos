@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  server_url: "http://localhost/EcomerceJuegosTP/apirestTPFinal/apirestV6-JWT-MW-POO/ecomerce/"
+  server_url: "http://localhost:8080/EcomerceJuegosTP/apirestTPFinal/apirestV6-JWT-MW-POO/ecomerce/"
 };
 
 /*

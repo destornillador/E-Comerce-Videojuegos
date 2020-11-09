@@ -18,7 +18,7 @@
                 <mat-select placeholder="Seleccione consola" [(ngModel)]="plataforma" formControlName="plataforma"
                 required>
                     <mat-option *ngFor="let plataforma of plataformas" [value]="plataforma.id">
-                    {{plataforma.valor}}
+                    {{plataforma.descripcion}}
                     </mat-option>
                 </mat-select>
                 <mat-error *ngIf="formErrors.plataforma">{{formErrors.plataforma}}</mat-error>
@@ -27,7 +27,7 @@
                 <mat-select placeholder="Seleccione formato" [(ngModel)]="formato" formControlName="formato"
                 required>
                     <mat-option *ngFor="let formato of formatos" [value]="formato.id">
-                    {{formato.valor}}
+                    {{formato.descripcion}}
                     </mat-option>
                 </mat-select>
                 <mat-error *ngIf="formErrors.formato">{{formErrors.formato}}</mat-error>
@@ -36,7 +36,7 @@
                 <mat-select placeholder="Seleccione genero" [(ngModel)]="genero" formControlName="genero"
                 required>
                     <mat-option *ngFor="let genero of generos" [value]="genero.id">
-                    {{genero.valor}}
+                    {{genero.descripcion}}
                     </mat-option>
                 </mat-select>
                 <mat-error *ngIf="formErrors.genero">{{formErrors.genero}}</mat-error>
@@ -78,7 +78,7 @@
                 <mat-select placeholder="Seleccione consola" [(ngModel)]="datos.juegoActualizar.plataformaId" [disabled]="true" formControlName="plataforma"
                 required>
                     <mat-option *ngFor="let plataforma of plataformas" [value]="plataforma.id">
-                    {{plataforma.valor}}
+                    {{plataforma.descripcion}}
                     </mat-option>
                 </mat-select>
                 <mat-error *ngIf="formErrors.plataforma">{{formErrors.plataforma}}</mat-error>
@@ -87,7 +87,7 @@
                 <mat-select placeholder="Seleccione formato" [(ngModel)]="datos.juegoActualizar.formatoId" [disabled]="true" formControlName="formato"
                 required>
                     <mat-option *ngFor="let formato of formatos" [value]="formato.id">
-                    {{formato.valor}}
+                    {{formato.descripcion}}
                     </mat-option>
                 </mat-select>
                 <mat-error *ngIf="formErrors.formato">{{formErrors.formato}}</mat-error>
@@ -96,7 +96,7 @@
                 <mat-select placeholder="Seleccione genero" [(ngModel)]="datos.juegoActualizar.generoId" [disabled]="true" formControlName="genero"
                 required>
                     <mat-option *ngFor="let genero of generos" [value]="genero.id">
-                    {{genero.valor}}
+                    {{genero.descripcion}}
                     </mat-option>
                 </mat-select>
                 <mat-error *ngIf="formErrors.genero">{{formErrors.genero}}</mat-error>

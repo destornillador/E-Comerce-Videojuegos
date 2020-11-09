@@ -18,12 +18,15 @@ export class PrincipalComponent implements OnInit {
 
   TIPO:string="";
   public juegos: any[];
+  public generos = [];
+  public formatos = [];
+  public plataformas = [];
   public formato: string = "";
   public genero: string = "";
   public plataforma: string = "";
   public orden: string = "";
   public titulo: string = "";
-  constructor(public JuegoService : JuegoService,public verificarService :VerificarService,public dialog: MatDialog,public router:Router) { }
+  constructor(public juegoService : JuegoService,public verificarService :VerificarService,public dialog: MatDialog,public router:Router) { }
 
   ngOnInit() {
     let tokenjs = localStorage.getItem("Token");
@@ -36,11 +39,38 @@ export class PrincipalComponent implements OnInit {
           this.TIPO = "0";
       }
     );
+    this.cargarCombos();
     this.buscar();
   }
 
+  cargarCombos(){
+    this.juegoService.listarFormatosPromesa()
+    .then((datos) => {
+        this.formatos.push({id:"",descripcion:"Todos"});
+        datos.forEach(elemt => this.formatos.push(elemt))
+      })
+      .catch(
+      (noSeEncontroUsuario) => { alert("Error en el sistema"); }
+      );
+    this.juegoService.listarGenerosPromesa()
+    .then((datos) => {
+        this.generos.push({id:"",descripcion:"Todos"});
+        datos.forEach(elemt => this.generos.push(elemt))
+      })
+      .catch(
+      (noSeEncontroUsuario) => { alert("Error en el sistema"); }
+      );
+    this.juegoService.listarPlataformasPromesa()
+    .then((datos) => {
+        this.plataformas.push({id:"",descripcion:"Todos"});
+        datos.forEach(elemt => this.plataformas.push(elemt))
+      })
+      .catch(
+      (noSeEncontroUsuario) => { alert("Error en el sistema"); }
+      );
+  }
   buscar(){
-    this.JuegoService.listarJuegosPromesa(this.plataforma,this.genero,this.formato,this.titulo,this.orden).then(
+    this.juegoService.listarJuegosPromesa(this.plataforma,this.genero,this.formato,this.titulo,this.orden).then(
       (datos) => {
         this.juegos = datos;
       }

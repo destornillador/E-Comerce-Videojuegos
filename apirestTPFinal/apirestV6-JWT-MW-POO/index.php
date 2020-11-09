@@ -7,6 +7,15 @@ use \Psr\Http\Message\ResponseInterface as Response;
 require '../composer/vendor/autoload.php';
 require_once 'clases/JuegoApi.php';
 require_once 'clases/UsuarioApi.php';
+require_once 'clases/PlataformaApi.php';
+require_once 'clases/GeneroApi.php';
+require_once 'clases/FormatoApi.php';
+require_once 'clases/FormaPagoApi.php';
+require_once 'clases/TipoRetiroApi.php';
+require_once 'clases/ZonaApi.php';
+require_once 'clases/CuotaApi.php';
+require_once 'clases/VentaApi.php';
+require_once 'clases/VentaJuegoApi.php';
 
 require_once 'clases/MWparaAutentificar.php';
 require_once 'clases/MWparaCORS.php';
@@ -74,6 +83,7 @@ $app->group('/ecomerce', function () {
       $this->post('/getJuego', \JuegoApi::class . ':TraerJuego')->add(\MWparaCORS::class . ':HabilitarCORS8080');
       $this->post('/guardarJuego', \JuegoApi::class . ':CargarUno')->add(\MWparaCORS::class . ':HabilitarCORS8080');
       $this->post('/actualizarJuego', \JuegoApi::class . ':ActualizarUno')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/traerCarrito', \JuegoApi::class . ':TraerCarrito')->add(\MWparaCORS::class . ':HabilitarCORS8080');
      
       $this->post('/login',\UsuarioApi::class . ':TraerUno')->add(\MWparaCORS::class . ':HabilitarCORSTodos');
       $this->post('/guardarCliente', \UsuarioApi::class . ':CargarUno')->add(\MWparaCORS::class . ':HabilitarCORS8080');
@@ -81,6 +91,28 @@ $app->group('/ecomerce', function () {
       $this->post('/habilitar', \UsuarioApi::class . ':HabilitarUsuario');
       $this->post('/contratar', \UsuarioApi::class . ':ContratarUsuario');
       $this->post('/desabilitar', \UsuarioApi::class . ':DesabilitarUsuario');
+
+      $this->post('/TraerVentas', \VentaApi::class . ':TraerVentas')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/guardarVenta', \VentaApi::class . ':CargarUno')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/TraerVentaJuegos', \VentaJuegoApi::class . ':TraerVentaJuegos')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/guardarVentaJuego', \VentaJuegoApi::class . ':CargarUno')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/pasarEstado', \VentaApi::class . ':PasarEstado')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+
+      $this->post('/listarPlataformas', \PlataformaApi::class . ':TraerPlataformas')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/listarFormatos', \FormatoApi::class . ':TraerFormatos')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/listarGeneros', \GeneroApi::class . ':TraerGeneros')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/listarZonas', \ZonaApi::class . ':Traer')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/listarTipoRetiros', \TipoRetiroApi::class . ':Traer')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/listarFormaPagos', \FormaPagoApi::class . ':Traer')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/listarCuotas', \CuotaApi::class . ':Traer')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/ingresarZona', \ZonaApi::class . ':CargarUno')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/actualizarZona', \ZonaApi::class . ':Actualizar')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/ingresarPlataforma', \PlataformaApi::class . ':CargarUno')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/actualizarPlataforma', \PlataformaApi::class . ':Actualizar')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/ingresarGenero', \GeneroApi::class . ':CargarUno')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/actualizarGenero', \GeneroApi::class . ':Actualizar')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/ingresarCuota', \CuotaApi::class . ':CargarUno')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/actualizarCuota', \CuotaApi::class . ':Actualizar')->add(\MWparaCORS::class . ':HabilitarCORS8080');
 
       $this->post('/CrearToken', \UsuarioApi::class . ':CrearToken')->add(\MWparaCORS::class . ':HabilitarCORSTodos');
       $this->post('/VerificarToken', \UsuarioApi::class . ':VerificarToken')->add(\MWparaCORS::class . ':HabilitarCORSTodos');

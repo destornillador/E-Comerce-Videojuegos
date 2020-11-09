@@ -1,0 +1,51 @@
+<app-menu (valor)="AbrirModal($event)"></app-menu>
+
+<div *ngIf="(TIPO == '2')" class="flexbox-container"> 
+    <div class="row">
+        <!--<div class="col-xl-7 col-lg-8 col-md-12 col-sm-12 col-12">-->
+        <div class="col-xl-3 col-lg-3 col-md-0 col-sm-0 col-0"></div>
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+            <table *ngIf="listadoParaCompartir && listadoParaCompartir.length > 0" class='table table-hover table-responsive'>
+                <thead>
+                    <tr style="font-size: 25px;font-family: Georgia, 'Times New Roman', serif;">
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let carrito of listadoParaCompartir" >
+                    <tr style="font-size: 25px;font-family: Georgia, 'Times New Roman', serif;">
+                    <td>{{carrito.titulo}} {{carrito.plataforma}} {{carrito.formato}} </td> 
+                    <td>${{carrito.precio}} </td> 
+                    <td>
+                        <div style="text-align: center">
+                            <button class="botonCantidad" (click)="ModificarCantidad(carrito,1)">-</button>
+                            <!--<input type="number" value="1" onchange="">-->
+                            <button class="botonCantidadElegir">{{carrito.cantidad}}</button>
+                            <button class="botonCantidad" (click)="ModificarCantidad(carrito,2)">+</button>
+                        </div> 
+                    </td>
+                    <td><button class="btn btn-danger" (click)="Quitar(carrito.id)" style="width: 100%">Quitar producto</button></td> 
+                    </tr> 
+                </tbody>
+            </table>
+            <h1 *ngIf="listadoParaCompartir.length == 0" > No hay Juegos en el carrito</h1>
+            <mat-card >
+                <mat-card-title>Total del carrito: {{total}}</mat-card-title>
+                <mat-card-content>
+                    <button (click)="FinalizarCompra()" class="btn btn-primary btn-lg">Ir a finalizar compra</button>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-0 col-sm-0 col-0"></div>
+        <!--<div class="col-xl-5 col-lg-4 col-md-12 col-sm-12 col-12">
+            <mat-card >
+                <mat-card-title>Total del carrito: </mat-card-title>
+                <mat-card-subtitle>total:  </mat-card-subtitle>
+                <mat-card-content>
+                    <button (click)="FinalizarCompra()" class="btn btn-primary btn-lg">Ir a finalizar compra</button>
+                </mat-card-content>
+            </mat-card>
+        </div>-->
+    </div>
+</div>

@@ -34,6 +34,11 @@
   
   <a class="navbar-brand" href="#">Principal</a>
   <a class="navbar-brand" href="Empleados">Empleados</a>
+  <a class="navbar-brand" href="ListaCompras">Compras</a>
+  <a class="navbar-brand" href="Cuotas">Cuotas</a>
+  <a class="navbar-brand" href="ZonasEnvio">Zonas de Envío</a>
+  <a class="navbar-brand" href="Generos">Generos</a>
+  <a class="navbar-brand" href="Plataformas">Plataformas</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -53,6 +58,7 @@
 <nav *ngIf="TIPO == '2'" class="navbar navbar-expand-lg navbar-dark bg-dark">
   
   <a class="navbar-brand" href="#">Principal</a>
+  <a class="navbar-brand" href="ListaCompras">Mis compras</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -63,7 +69,7 @@
     
     <li class="nav navbar-nav">
         <a class="nav-link">{{nombreUsuario}}</a>
-        <a class="nav-link"><i class="fa fa-fw fa-shopping-cart"></i></a>
+        <a class="nav-link">CARRITO<i (click)="IR('Carrito')" class="fa fa-fw fa-shopping-cart"></i></a>
         <a class="nav-link" (click)="logOut()" ><i class="fa fa-fw fa-sign-out"></i></a>
     </li>    
 
@@ -73,6 +79,7 @@
 <nav *ngIf="TIPO == '3'" class="navbar navbar-expand-lg navbar-dark bg-dark">
   
   <a class="navbar-brand" href="#">Principal</a>
+  <a class="navbar-brand" href="ListaCompras">Compras</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>

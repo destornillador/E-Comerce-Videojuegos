@@ -1,0 +1,17 @@
+<app-menu (valor)="AbrirModal($event)"></app-menu>
+<table *ngIf="lista.length > 0" class='table table-hover table-responsive table-fixed'>
+  <thead>
+    <tr style="font-size: 25px;font-family: Georgia, 'Times New Roman', serif;">
+      <th>Cantidad de cuotas</th>
+      <th>Interes</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let cuota of lista" >
+    <tr style="font-size: 25px;font-family: Georgia, 'Times New Roman', serif;">
+      <td>{{cuota.numero}}</td> 
+      <td>{{cuota.interes}}%</td> 
+      <td><button class="btn btn-info" (click)="AbrirAbm(cuota)" style="width: 100%">Ver datos</button></td>
+    </tr> 
+    </tbody>
+</table>
+<button class="btn btn-info" (click)="AbrirAbm(null)">Agregar Genero</button>

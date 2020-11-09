@@ -1,0 +1,29 @@
+<mat-card>
+    <mat-card-title>{{data.titulo}}</mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="registroForm">
+            <mat-form-field *ngIf="data.tipoAbm != 'CUOTA'">
+                <input type="text" matInput [(ngModel)]="data.descripcion" placeholder="Ingrese descripcion" formControlName="descripcion" required>
+                <mat-error *ngIf="formErrors.descripcion">{{formErrors.descripcion}}</mat-error>
+            </mat-form-field>
+            <mat-form-field *ngIf="data.tipoAbm == 'ZONA'">
+                <input type="number" matInput [(ngModel)]="data.precio" placeholder="Ingrese precio del envio" formControlName="precio" required>
+                <mat-error *ngIf="formErrors.precio">{{formErrors.precio}}</mat-error>
+            </mat-form-field>
+            <mat-form-field *ngIf="data.tipoAbm == 'CUOTA'"> 
+                <input type="number" matInput [(ngModel)]="data.numero" placeholder="Ingrese numero de cuota" formControlName="numero" required>
+                <mat-error *ngIf="formErrors.numero">{{formErrors.numero}}</mat-error>
+            </mat-form-field>
+            <mat-form-field *ngIf="data.tipoAbm == 'CUOTA'"> 
+                <input type="number" matInput [(ngModel)]="data.interes" placeholder="Ingrese interes de la cuota" formControlName="interes" required>
+                <mat-error *ngIf="formErrors.interes">{{formErrors.interes}}</mat-error>
+            </mat-form-field>
+            <div style="text-align: center">
+                <button class="btn btn-primary btn-lg" (click)="guardar()">
+                Aceptar
+                </button>
+            </div>
+
+        </form>
+    </mat-card-content>
+</mat-card>

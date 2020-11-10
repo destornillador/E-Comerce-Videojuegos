@@ -24,6 +24,9 @@ RUN npm ci && \
 
 FROM php:7.3.21-apache-buster
 # Apache configuration
+# Apache configuration
+COPY cd_assets/httpd/000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY cd_assets/httpd/ports.conf /etc/apache2/ports.conf
 COPY cd_assets/httpd/000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY cd_assets/httpd/ports.conf /etc/apache2/ports.conf
 
@@ -31,11 +34,12 @@ RUN a2enmod rewrite
 # Get the website src
 WORKDIR /var/www/html/utnfra-tssi-pss2-mundogamer
 COPY --from=nodejs-build /src/node_modules/ ./node_modules/
-COPY --from=nodejs-build /src/dist/EcomerceJuegosTP/* .
+COPY --from=nodejs-build /src/dist/EcomerceJuegosTP .
 COPY --from=php-build /src/apirestTPFinal ./apirestTPFinal/
 # FIXME: Ugly workaround
 run ln -s /var/www/html/utnfra-tssi-pss2-mundogamer/ /var/www/html/utnfra-tssi-pss2-mundogamer/EcomerceJuegosTP
 COPY --from=php-build /usr/local/include/php/ext/ /usr/local/include/php/ext/
 COPY --from=php-build /usr/local/etc/php/conf.d/ /usr/local/etc/php/conf.d/
 COPY --from=php-build /usr/local/lib/php/extensions/ /usr/local/lib/php/extensions/
+
 RUN chown -R www-data: $PWD

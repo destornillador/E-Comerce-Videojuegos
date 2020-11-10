@@ -23,49 +23,49 @@ export class HttpService {
     const formData = new FormData();
     let header = new HttpHeaders();
     header.append('Content-Type','application/json');
-    return this.http.post(this.URl+"listarGeneros",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+    return this.http.post(environment.server_url+"listarGeneros",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
   buscarPlataformas()
   { 
     const formData = new FormData();
     let header = new HttpHeaders();
     header.append('Content-Type','application/json');
-    return this.http.post(this.URl+"listarPlataformas",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+    return this.http.post(environment.server_url+"listarPlataformas",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
   buscarFormatos()
   { 
     const formData = new FormData();
     let header = new HttpHeaders();
     header.append('Content-Type','application/json');
-    return this.http.post(this.URl+"listarFormatos",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+    return this.http.post(environment.server_url+"listarFormatos",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
   buscarZonas()
   { 
     const formData = new FormData();
     let header = new HttpHeaders();
     header.append('Content-Type','application/json');
-    return this.http.post(this.URl+"listarZonas",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+    return this.http.post(environment.server_url+"listarZonas",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
   buscarTiposRetiro()
   { 
     const formData = new FormData();
     let header = new HttpHeaders();
     header.append('Content-Type','application/json');
-    return this.http.post(this.URl+"listarTipoRetiros",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+    return this.http.post(environment.server_url+"listarTipoRetiros",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
   buscarFormasPago()
   { 
     const formData = new FormData();
     let header = new HttpHeaders();
     header.append('Content-Type','application/json');
-    return this.http.post(this.URl+"listarFormaPagos",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+    return this.http.post(environment.server_url+"listarFormaPagos",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
   buscarCuotas()
   { 
     const formData = new FormData();
     let header = new HttpHeaders();
     header.append('Content-Type','application/json');
-    return this.http.post(this.URl+"listarCuotas",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+    return this.http.post(environment.server_url+"listarCuotas",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
 
   buscarJuego(plataforma,genero,formato,titulo,orden)
@@ -87,7 +87,7 @@ export class HttpService {
     let header = new HttpHeaders();
     header.append('Content-Type','application/json');
     //return this.http.post(url,paramString).toPromise().then(this.extractData).catch(this.handleError);
-    return this.http.post(this.URl+"traerCarrito",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+    return this.http.post(environment.server_url+"traerCarrito",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
   traerJuego(juegoId)
   { 
@@ -208,7 +208,7 @@ export class HttpService {
     let header = new HttpHeaders();
     header.append('Content-Type','application/json');
     //return this.http.post(url,paramString).toPromise().then(this.extractData).catch(this.handleError);
-    return this.http.post(this.URl+"TraerVentas",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+    return this.http.post(environment.server_url+"TraerVentas",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
   traerArticulos(ventaId){
     const formData = new FormData();
@@ -216,7 +216,7 @@ export class HttpService {
     let header = new HttpHeaders();
     header.append('Content-Type','application/json');
     //return this.http.post(url,paramString).toPromise().then(this.extractData).catch(this.handleError);
-    return this.http.post(this.URl+"TraerVentaJuegos",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+    return this.http.post(environment.server_url+"TraerVentaJuegos",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
   crearVenta(venta:any)
   {
@@ -235,7 +235,7 @@ export class HttpService {
     let header = new HttpHeaders();
     header.append('Content-Type','application/json');
     
-    return this.http.post(this.URl+"guardarVenta",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+    return this.http.post(environment.server_url+"guardarVenta",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
   crearVentaJuego(ventaJuego:any,nuevoStock:string)
   {
@@ -249,7 +249,7 @@ export class HttpService {
     let header = new HttpHeaders();
     header.append('Content-Type','application/json');
     
-    return this.http.post(this.URl+"guardarVentaJuego",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+    return this.http.post(environment.server_url+"guardarVentaJuego",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
   pasarEstado(ventaId,tipoRetiroId,tarjeta,estado){
     const formData = new FormData()
@@ -261,7 +261,7 @@ export class HttpService {
     let header = new HttpHeaders();
     header.append('Content-Type','application/json');
     
-    return this.http.post(this.URl+"pasarEstado",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+    return this.http.post(environment.server_url+"pasarEstado",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
 
   crearToken(datos:any)
@@ -312,6 +312,6 @@ export class HttpService {
     let header = new HttpHeaders();
     header.append('Content-Type','application/json');
     
-    return this.http.post(this.URl+data.url,formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+    return this.http.post(environment.server_url+data.url,formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
 }

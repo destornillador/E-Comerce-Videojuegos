@@ -71,12 +71,12 @@ export class JuegoDatosComponent implements OnInit {
       juegosCarrito.push(this.juego.id);
       localStorage.setItem("Carrito", JSON.stringify(juegosCarrito));
       alert("Agregado al carrito");
-      this.router.navigate(['/Principal']);
+      this.router.navigate(['/']);
     }
     else{
       localStorage.setItem("Carrito", JSON.stringify([this.juego.id]));
       alert("Agregado al carrito");
-      this.router.navigate(['/Principal']);
+      this.router.navigate(['/']);
     }
   }
 
@@ -105,7 +105,7 @@ export class JuegoDatosComponent implements OnInit {
     }
     if(event == 0){
       localStorage.clear();
-      this.router.navigate(['/Principal']);
+      this.router.navigate(['/']);
     }
   }
 }

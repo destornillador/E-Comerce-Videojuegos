@@ -43,7 +43,7 @@ export class AbmEmpleadosComponent implements OnInit {
   AbrirModal(event: any) {
     if(event == 0){
       localStorage.clear();
-      this.router.navigate(['/Principal']);
+      this.router.navigate(['/']);
     }
   }
 }

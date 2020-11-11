@@ -48,7 +48,6 @@ export class ConfirmarCompraComponent implements OnInit {
 
     this.ventaService.entregarVenta(venta).then(
       (datos) => {
-        debugger;
         for(var i = 0;i< this.data.lista.length;i++){
           var nuevoStock = this.data.lista[i].stock - this.data.lista[i].cantidad;
           var ventaJuego = new VentaJuego(0,this.data.lista[i].id,datos,this.data.lista[i].precio,this.data.lista[i].cantidad,"",1,"","");
@@ -56,7 +55,7 @@ export class ConfirmarCompraComponent implements OnInit {
         }
         localStorage.removeItem("Carrito");
         alert("Compra Realizada, sigala en el listado con este id: "+datos);
-        this.router.navigate(['/Principal']);
+        this.router.navigate(['/']);
         this.dialogref.close();
       }
     );

@@ -30,7 +30,7 @@ export class ListaCuotasComponent implements OnInit {
   AbrirModal(event: any) {
     if(event == 0){
       localStorage.clear();
-      this.router.navigate(['/Principal']);
+      this.router.navigate(['/']);
     }
   }
   AbrirAbm(cuota:any){

@@ -32,13 +32,13 @@
 
 <nav *ngIf="TIPO == '1'" class="navbar navbar-expand-lg navbar-dark bg-dark">
   
-  <a class="navbar-brand" href="#">Principal</a>
-  <a class="navbar-brand" href="Empleados">Empleados</a>
-  <a class="navbar-brand" href="ListaCompras">Compras</a>
-  <a class="navbar-brand" href="Cuotas">Cuotas</a>
-  <a class="navbar-brand" href="ZonasEnvio">Zonas de Envío</a>
-  <a class="navbar-brand" href="Generos">Generos</a>
-  <a class="navbar-brand" href="Plataformas">Plataformas</a>
+  <a class="navbar-brand" (click)="IR('')">Principal</a>
+  <a class="navbar-brand" (click)="IR('Empleados')">Empleados</a>
+  <a class="navbar-brand" (click)="IR('ListaCompras')">Compras</a>
+  <a class="navbar-brand" (click)="IR('Cuotas')">Cuotas</a>
+  <a class="navbar-brand" (click)="IR('ZonasEnvio')">Zonas de Envío</a>
+  <a class="navbar-brand" (click)="IR('Generos')">Generos</a>
+  <a class="navbar-brand" (click)="IR('Plataformas')">Plataformas</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -57,8 +57,8 @@
 
 <nav *ngIf="TIPO == '2'" class="navbar navbar-expand-lg navbar-dark bg-dark">
   
-  <a class="navbar-brand" href="#">Principal</a>
-  <a class="navbar-brand" href="ListaCompras">Mis compras</a>
+  <a class="navbar-brand" (click)="IR('')">Principal</a>
+  <a class="navbar-brand" (click)="IR('ListaCompras')">Mis compras</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -78,8 +78,8 @@
 
 <nav *ngIf="TIPO == '3'" class="navbar navbar-expand-lg navbar-dark bg-dark">
   
-  <a class="navbar-brand" href="#">Principal</a>
-  <a class="navbar-brand" href="ListaCompras">Compras</a>
+  <a class="navbar-brand" (click)="IR('')">Principal</a>
+  <a class="navbar-brand" (click)="IR('ListaCompras')">Compras</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>

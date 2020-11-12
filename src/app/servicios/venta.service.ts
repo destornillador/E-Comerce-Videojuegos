@@ -43,6 +43,20 @@ export class VentaService {
       });
     return result;
   }
+  public reintegrarStock(juegoId:any,nuevoStock: any){
+    let result: Promise<number> = this.miHttp.reintegrarStock(juegoId,nuevoStock)
+      .then(datos => {
+        if(datos.respuesta != null)
+          return datos.respuesta;
+        else
+          return false;
+      })
+      .catch(error => {
+        console.log(error);
+        return false;
+      });
+    return result;
+  }
   public pasarEstadoVenta(ventaId,tipoRetiroId,tarjeta,estado):Promise<string>
   {
     let result: Promise<string> = this.miHttp.pasarEstado(ventaId,tipoRetiroId,tarjeta,estado)
@@ -81,7 +95,7 @@ export class VentaService {
           console.log(datos);
           let miArray: Array<VentaJuego> = new Array<VentaJuego>();
           for (let unDato of datos) {
-            miArray.push(new VentaJuego(unDato.id,unDato.juegoId,unDato.ventaId,unDato.precio,unDato.cantidad,unDato.juegoTitulo,0,
+            miArray.push(new VentaJuego(unDato.id,unDato.juegoId,unDato.ventaId,unDato.precio,unDato.cantidad,unDato.juegoTitulo,unDato.stock,
             unDato.juegoPlataforma,unDato.juegoFormato));                        
           }
           resolve(miArray);

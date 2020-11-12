@@ -39,5 +39,23 @@ class VentaJuegoApi extends VentaJuego
         
         return $response->withJson($objDelaRespuesta, 200);
     }
+
+    public function RegresarStock($request, $response, $args) {
+        
+        $objDelaRespuesta= new stdclass();
+        
+        $ArrayDeParametros = $request->getParsedBody();
+        
+        $juegoId = $ArrayDeParametros["juegoId"];
+        $nuevoStock = $ArrayDeParametros["nuevoStock"];
+        
+        $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+        $consulta =$objetoAccesoDato->RetornarConsulta("UPDATE juego SET stock = :nuevoStock WHERE id = :juegoId");
+        $consulta->bindParam(':juegoId',$juegoId);
+        $consulta->bindParam(':nuevoStock',$nuevoStock);
+        $consulta->execute();
+        
+        return $response->withJson($objDelaRespuesta, 200);
+    }
 }
 ?>

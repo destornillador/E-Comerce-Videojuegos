@@ -100,10 +100,16 @@ class VentaApi extends Venta
         $consulta->bindParam(':ventaId',$ventaId);
         $consulta->execute();
         if($rechazo == true){
-            $objDelaRespuesta->respuesta="No se pudo autorizar la venta.";
+            $resultado = new stdClass();
+            $resultado->mensaje = "No se pudo autorizar la venta.";
+            $resultado->exito = false;
+            $objDelaRespuesta->respuesta= $resultado;
         }
         else{
-            $objDelaRespuesta->respuesta="Venta actualizada éxitosamente.";
+            $resultado = new stdClass();
+            $resultado->mensaje = "Venta actualizada éxitosamente.";
+            $resultado->exito = true;
+            $objDelaRespuesta->respuesta= $resultado;
         }
         return $response->withJson($objDelaRespuesta, 200);
     }

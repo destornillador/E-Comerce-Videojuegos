@@ -96,6 +96,7 @@ $app->group('/ecomerce', function () {
       $this->post('/guardarVenta', \VentaApi::class . ':CargarUno')->add(\MWparaCORS::class . ':HabilitarCORS8080');
       $this->post('/TraerVentaJuegos', \VentaJuegoApi::class . ':TraerVentaJuegos')->add(\MWparaCORS::class . ':HabilitarCORS8080');
       $this->post('/guardarVentaJuego', \VentaJuegoApi::class . ':CargarUno')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/regresarVentaJuego', \VentaJuegoApi::class . ':RegresarStock')->add(\MWparaCORS::class . ':HabilitarCORS8080');
       $this->post('/pasarEstado', \VentaApi::class . ':PasarEstado')->add(\MWparaCORS::class . ':HabilitarCORS8080');
 
       $this->post('/listarPlataformas', \PlataformaApi::class . ':TraerPlataformas')->add(\MWparaCORS::class . ':HabilitarCORS8080');

@@ -263,6 +263,16 @@ export class HttpService {
     
     return this.http.post(environment.server_url+"pasarEstado",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
+  reintegrarStock(juegoId,nuevoStock){
+    const formData = new FormData()
+    formData.append('juegoId',juegoId);
+    formData.append('nuevoStock',nuevoStock);   
+  
+    let header = new HttpHeaders();
+    header.append('Content-Type','application/json');
+    
+    return this.http.post(environment.server_url+"regresarVentaJuego",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+  }
 
   crearToken(datos:any)
   { 

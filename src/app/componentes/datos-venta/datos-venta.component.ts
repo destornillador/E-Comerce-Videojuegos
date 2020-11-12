@@ -44,8 +44,13 @@ export class DatosVentaComponent implements OnInit {
 
   pasarEstado(){
     this.ventaService.pasarEstadoVenta(this.venta.id,this.venta.tipoRetiroId,this.venta.tarjeta,this.venta.estado).then(
-      (mensaje) => {
-        alert(mensaje);
+      (resultado: any) => {
+        if(!resultado.exito){
+          for(var i=0;i< this.listaArticulos.length;i++){
+            this.ventaService.reintegrarStock(this.listaArticulos[i].juegoId, this.listaArticulos[i].cantidad + this.listaArticulos[i].stock);
+          }
+        }
+        alert(resultado.mensaje);
         this.router.navigate(['/ListaCompras']);
       }
     );

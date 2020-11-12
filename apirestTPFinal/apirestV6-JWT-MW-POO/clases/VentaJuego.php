@@ -14,7 +14,7 @@ class VentaJuego
 	public static function TraerVentasJuegoDatos($ventaId)
 	{
 			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-			$script = "SELECT VJ.*, J.titulo as juegoTitulo, G.descripcion as juegoGenero, P.descripcion as juegoPlataforma, F.descripcion as juegoFormato
+			$script = "SELECT VJ.*, J.titulo as juegoTitulo, J.stock, G.descripcion as juegoGenero, P.descripcion as juegoPlataforma, F.descripcion as juegoFormato
                         FROM ventajuego as VJ 
                         inner join juego as J on J.id = VJ.juegoId
                         inner join plataforma as P on P.id = J.plataformaId

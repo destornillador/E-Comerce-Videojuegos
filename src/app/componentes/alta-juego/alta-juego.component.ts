@@ -168,6 +168,7 @@ export class AltaJuegoComponent implements OnInit {
       if (datos == true) 
       {
         alert("Se actualizo con exito");
+        this.dialogref.close();
       }
       })
       .catch(

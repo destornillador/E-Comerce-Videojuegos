@@ -17,6 +17,7 @@ import { AltaJuegoComponent } from '../alta-juego/alta-juego.component';
 export class PrincipalComponent implements OnInit {
 
   TIPO:string="";
+  estado: string="";
   public juegos: any[];
   public generos = [];
   public formatos = [];
@@ -33,10 +34,14 @@ export class PrincipalComponent implements OnInit {
     let token:any = tokenjs!=null?JSON.parse(tokenjs):null;
     this.verificarService.recuperToken(token).then(
       (datos) => {
-        if(datos.respuesta)
+        if(datos.respuesta){
           this.TIPO = datos.respuesta.tipoUsuarioId;
-        else
+          this.estado = datos.respuesta.estado;
+        }
+        else{
           this.TIPO = "0";
+          this.estado = "0";
+        }
       }
     );
     this.cargarCombos();

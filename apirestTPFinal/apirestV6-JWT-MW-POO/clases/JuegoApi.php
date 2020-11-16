@@ -62,7 +62,8 @@ class JuegoApi extends Juego
        $ultimoId =  Juego::InsertarJuegoParametros($titulo,$precio,$plataformaId,$generoId,$formatoId,$descripcion,$stock,"");
        $objDelaRespuesta->respuesta=$ultimoId;
 
-       $destino="../../src/assets/portadas/";
+       //$destino="../../src/assets/portadas/";
+	   $destino="../../assets/portadas/";
        $archivos = $request->getUploadedFiles();
        $fotoNombre = $ultimoId.".jpg";
        $archivos['foto']->moveTo($destino.$fotoNombre);
@@ -86,8 +87,9 @@ class JuegoApi extends Juego
        $actualizar = $ArrayDeParametros["cambiarFoto"];
        
        if($actualizar == "Si"){
-        $destino="../../src/assets/portadas/";
-        $archivos = $request->getUploadedFiles();
+        //$destino="../../src/assets/portadas/";
+        $destino="../../assets/portadas/";
+		$archivos = $request->getUploadedFiles();
         $archivos['foto']->moveTo($destino.$fotoNombre);
        }
 

@@ -147,6 +147,14 @@ export class HttpService {
     header.append('Content-Type','application/json');
     return this.http.post(environment.server_url+"login",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
+  verificarUsuario(usuario:string)
+  { 
+    const formData = new FormData()
+    formData.append('usuario',usuario);
+    let header = new HttpHeaders();
+    header.append('Content-Type','application/json');
+    return this.http.post(environment.server_url+"verificarUsuario",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+  }
   traerEmpleados()
   { 
     const formData = new FormData();
@@ -284,6 +292,7 @@ export class HttpService {
     formData.append('tipoUsuarioId',datos.tipoUsuarioId);
     formData.append('email',datos.email);
     formData.append('telefono',datos.telefono);
+    formData.append('estado',datos.estado);
     //var param = {usuario:datos.nombre,clave:datos.contrasenia};
     //var paramString = JSON.stringify(param);
     

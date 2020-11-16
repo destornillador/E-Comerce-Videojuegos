@@ -57,6 +57,7 @@ export class RegistroComponent implements OnInit {
     contraseniaCopia: {
       required: "Este campo es requerido",
       minlength: "Ingresá una contraseña mayor a 10 caracteres",
+      invalidpass: "No coincide la contraseña"
     },
     nombre: {
       required: "Este campo es requerido",
@@ -70,6 +71,7 @@ export class RegistroComponent implements OnInit {
     },
     telefono: {
       required: "Este campo es requerido",
+      rangelength: "Ingrese número de 8 a 11 digitos"
     },
     fechaNacimiento: {
       required: "Este campo es requerido",
@@ -98,14 +100,36 @@ export class RegistroComponent implements OnInit {
         Validators.pattern(
             /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
           )]],
-        telefono: [this.telefono, [Validators.required]],
+        telefono: [this.telefono, [Validators.required, this.validarTelefono]],
         fechaNacimiento: [this.fechaNacimiento, [Validators.required]],
         sexo: [this.sexo, [Validators.required]],
-      }
+      },
+      {validator: this.validarContraseña}
     );
     form.valueChanges.subscribe(data => this.onValueChanged(data));
     return form;
   };
+  validarContraseña(group: FormGroup) {
+    group.controls['contraseniaCopia'].setValidators([Validators.required,Validators.minLength(10)])
+
+    if(group.controls['contraseniaCopia'].valid){
+      if(group.controls["contrasenia"].value == group.controls["contraseniaCopia"].value){
+        group.controls['contraseniaCopia'].setErrors(null);
+      }
+      else{
+        group.controls['contraseniaCopia'].setErrors({ 'invalidpass': true });
+      }
+    }
+    return
+  }
+  validarTelefono(control: FormControl){
+    if(control.value == null || (control.value.toString().length >= 8 && control.value.toString().length <= 11)){
+       return null
+    }
+    else{
+       return { rangelength: true };
+    }
+  }
   onValueChanged(data?: any) {
     if (!this.registroForm) {
       return;
@@ -131,38 +155,56 @@ export class RegistroComponent implements OnInit {
     this.tipo = value;
   }
   registrar(){
-    console.log(this.tipo);
     if (this.registroForm.invalid) return alert("Complete los campos requeridos");
-    var fecha = this.fechaNacimiento.toDateString().split(" ");
-    var fechaString = this.obtenerFecha(fecha);
-    var estado = 1;
-    if(this.tipo == 3){
-      estado = 3;
-    }
 
-    var usuario = new Usuario(0,this.username,this.password,this.nombre,this.apellido,this.sexo,this.email,this.telefono,fechaString,this.tipo,estado);
+    this.usuarioService.verificar(this.username)
+    .then((resultado) => {
+        if(!resultado.exito){
+          return alert(resultado.mensaje);
+        }
 
-    this.usuarioService.RegistrarCliente(usuario)
-        .then((datos) => {
-          if (datos == true) 
-          {
-            this.usuarioService.BuscarUsuario(this.username, this.password)
+        var fecha = this.fechaNacimiento.toDateString().split(" ");
+        var fechaString = this.obtenerFecha(fecha);
+        var estado = 1;
+        if(this.tipo == 3){
+          estado = 3;
+        }
+
+        var usuario = new Usuario(0,this.username,this.password,this.nombre,this.apellido,this.sexo,this.email,this.telefono,fechaString,this.tipo,estado);
+
+        this.usuarioService.RegistrarCliente(usuario)
             .then((datos) => {
-              if (datos != null) {
-                this.crearToken(datos);
+              if (datos == true) 
+              {
+                this.usuarioService.BuscarUsuario(this.username, this.password)
+                .then((datos) => {
+                  if (datos != null) {
+                    if(datos.estado == 1)
+                    {
+                      this.crearToken(datos);
+                    }
+                    else{
+                      alert("En este momento no esta habilitado para trabajar");
+                    }
+                  }
+                  else {
+                    alert("Problema al iniciar sesión, el usuario o la contraseña son incorrectos");
+                  }
+                })
+                .catch(
+                (noSeEncontroUsuario) => { alert("Datos incorrectos"); }
+                );
               }
-              else {
-                alert("Problema al iniciar sesión, el usuario o la contraseña son incorrectos");
-              }
-            })
-            .catch(
-            (noSeEncontroUsuario) => { alert("Datos incorrectos"); }
-            );
-          }
-          })
-          .catch(
-          (noSeEncontroUsuario) => { alert("Error en el sistema"); }
-          );
+              })
+              .catch(
+              (noSeEncontroUsuario) => { alert("Error en el sistema"); }
+              );
+    })
+    .catch(
+    (noSeEncontroUsuario) => { alert("Error en el sistema"); }
+    );
+
+    
   }
   obtenerFecha(fecha){
     switch(fecha[1]){

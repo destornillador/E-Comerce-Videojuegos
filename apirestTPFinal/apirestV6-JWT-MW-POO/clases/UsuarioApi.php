@@ -38,11 +38,36 @@ class UsuarioApi extends Usuario
         $contrasenia = $ArrayDeParametros['contrasenia'];
         $pass = md5($contrasenia);
         $User = Usuario::TraerUnUsuario($usuario,$pass);
-        //$User =Usuario::TraerTodoLosUsuarios();
+        
         $newresponse = $response->withJson($User, 200);  
         return $newresponse;
     }
     
+    public function ValidarUsuario($request, $response, $args) 
+    {
+        $objDelaRespuesta= new stdclass();
+        
+        $ArrayDeParametros = $request->getParsedBody();
+        $usuario= $ArrayDeParametros["usuario"];
+        
+        $User = Usuario::BuscarUsuario($usuario);
+        
+        $resultado = new stdClass();
+            
+        if($User == []){
+            $resultado->exito = true;
+            $objDelaRespuesta->respuesta= $resultado;
+        }
+        else{
+            $resultado->exito = false;
+            $resultado->mensaje = "El usuario ya fue creado";
+            $objDelaRespuesta->respuesta= $resultado;
+        }
+
+        $newresponse = $response->withJson($objDelaRespuesta, 200);  
+        return $newresponse;
+    }
+
     public function DesabilitarUsuario($request, $response, $args)
    {
         $objDelaRespuesta= new stdclass();

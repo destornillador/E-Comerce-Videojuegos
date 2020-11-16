@@ -17,7 +17,7 @@
                 <h1>$ {{juego.precio}}</h1>
                 <h2>Unidades disponibles: {{juego.stock}}</h2>
                 <button *ngIf="TIPO == '2'" type="submit" class="btn btn-primary btn-lg" (click)="AgregarCarrito()" [disabled]="juego.stock==0">Agregar al carrito</button>
-                <button *ngIf="TIPO == '1' || TIPO == '3'" (click)="AgregarJuego()" class="btn btn-primary btn-lg">Actualizar datos</button>
+                <button *ngIf="(TIPO == '1' || TIPO == '3') && estado == '1'" (click)="AgregarJuego()" class="btn btn-primary btn-lg">Actualizar datos</button>
                 <br><br>
             </div>
         </div>

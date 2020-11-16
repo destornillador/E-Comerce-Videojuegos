@@ -17,6 +17,7 @@ import { AltaJuegoComponent } from '../alta-juego/alta-juego.component';
 export class JuegoDatosComponent implements OnInit {
 
   TIPO:string="";
+  estado: string="";
   public listadoParaCompartir: Array<any>;
   public juego: any;
   constructor(public JuegoService : JuegoService,public verificarService: VerificarService,public dialog: MatDialog,
@@ -29,10 +30,14 @@ export class JuegoDatosComponent implements OnInit {
     let token:any = tokenjs!=null?JSON.parse(tokenjs):null;
     this.verificarService.recuperToken(token).then(
       (datos) => {
-        if(datos.respuesta)
+        if(datos.respuesta){
           this.TIPO = datos.respuesta.tipoUsuarioId;
-        else
+          this.estado = datos.respuesta.estado;
+        }
+        else{
           this.TIPO = "0";
+          this.estado = "0";
+        }
       }
     );
     const juegoId = this.route.snapshot.paramMap.get('id');

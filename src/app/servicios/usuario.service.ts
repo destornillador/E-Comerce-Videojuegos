@@ -50,6 +50,18 @@ export class UsuarioService {
     });
     return promesa;
   }
+  public verificar(usuario):Promise<any>
+  {
+    let result: Promise<string> = this.miHttp.verificarUsuario(usuario)
+      .then(datos => {
+        return datos.respuesta;
+      })
+      .catch(error => {
+        console.log(error);
+        return "Error en el servicio";
+      });
+    return result;
+  }
   public traerEmpleados(): Promise<Array<Usuario>> {
     let promesa: Promise<Array<Usuario>> = new Promise((resolve, reject) => {
       this.miHttp.traerEmpleados()

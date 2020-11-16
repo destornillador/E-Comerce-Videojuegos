@@ -84,7 +84,13 @@ export class LoginComponent implements OnInit {
     this.usuarioService.BuscarUsuario(this.username, this.password)
       .then((datos) => {
         if (datos != null) {
-          this.crearToken(datos);
+          if(datos.estado == 1)
+          {
+            this.crearToken(datos);
+          }
+          else{
+            alert("En este momento no esta habilitado para trabajar");
+          }
         }
         else {
           alert("Problema al iniciar sesión, el usuario o la contraseña son incorrectos");

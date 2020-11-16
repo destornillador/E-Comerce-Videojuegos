@@ -12,6 +12,7 @@ export class MenuComponent implements OnInit {
   @Input()
 
   TIPO:string="";
+  estado:string="";
   nombreUsuario:string="";
   constructor(public verificarService:VerificarService,public router:Router) { }
 
@@ -36,6 +37,7 @@ export class MenuComponent implements OnInit {
       (datos) => {
         if(datos.respuesta){
           this.TIPO = datos.respuesta.tipoUsuarioId;
+          this.estado = datos.respuesta.estado;
           this.nombreUsuario = datos.respuesta.usuario;
         }
         else

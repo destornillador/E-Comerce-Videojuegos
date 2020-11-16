@@ -39,6 +39,15 @@ class Usuario
                $consulta->execute();		
                return $objetoAccesoDato->RetornarUltimoIdInsertado();
     }
-   
+	public static function BuscarUsuario($usuario)
+    {
+		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+		$consulta =$objetoAccesoDato->RetornarConsulta("select * from usuario
+		Where usuario = :usuario");
+		$consulta->bindParam(':usuario',$usuario);
+
+		$consulta->execute();			
+		return $consulta->fetchAll(PDO::FETCH_CLASS, "Usuario");		
+    }
 }
 ?>

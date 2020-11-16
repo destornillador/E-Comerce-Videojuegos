@@ -105,7 +105,6 @@ export class VentaService {
     );
     return promesa;
   }
-
   public listarZonasPromesa(): Promise<Array<Zona>> {
     let promesa: Promise<Array<Zona>> = new Promise((resolve, reject) => {
       this.miHttp.buscarZonas()

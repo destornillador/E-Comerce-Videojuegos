@@ -88,6 +88,7 @@ $app->group('/ecomerce', function () {
       $this->post('/login',\UsuarioApi::class . ':TraerUno')->add(\MWparaCORS::class . ':HabilitarCORSTodos');
       $this->post('/guardarCliente', \UsuarioApi::class . ':CargarUno')->add(\MWparaCORS::class . ':HabilitarCORS8080');
       $this->post('/listarEmpleados', \UsuarioApi::class . ':TraerTodos')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/verificarUsuario', \UsuarioApi::class . ':ValidarUsuario')->add(\MWparaCORS::class . ':HabilitarCORS8080');
       $this->post('/habilitar', \UsuarioApi::class . ':HabilitarUsuario');
       $this->post('/contratar', \UsuarioApi::class . ':ContratarUsuario');
       $this->post('/desabilitar', \UsuarioApi::class . ':DesabilitarUsuario');

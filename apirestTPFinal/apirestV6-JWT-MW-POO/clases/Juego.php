@@ -108,5 +108,18 @@ class Juego
                $consulta->execute();		
                return $objetoAccesoDato->RetornarUltimoIdInsertado();
     }
+    public static function BuscarJuego($id,$titulo,$formatoId,$plataformaId)
+    {
+		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+		$consulta =$objetoAccesoDato->RetornarConsulta("select * from juego
+		Where titulo = :titulo AND formatoId = :formatoId AND plataformaId = :plataformaId AND id != :id");
+		$consulta->bindParam(':id',$id);
+        $consulta->bindParam(':titulo',$titulo);
+        $consulta->bindParam(':formatoId',$formatoId);
+        $consulta->bindParam(':plataformaId',$plataformaId);
+
+		$consulta->execute();			
+		return $consulta->fetchAll(PDO::FETCH_CLASS, "Juego");		
+    }
 }
 ?>

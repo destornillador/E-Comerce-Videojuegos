@@ -81,6 +81,19 @@ export class HttpService {
     //return this.http.post(url,paramString).toPromise().then(this.extractData).catch(this.handleError);
     return this.http.post(environment.server_url,formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
+  verificarJuego(id,titulo,plataforma,formato,plataformaId,formatoId)
+  { 
+    const formData = new FormData()
+    formData.append('id',id);
+    formData.append('titulo',titulo);
+    formData.append('plataforma',plataforma);
+    formData.append('formato',formato);
+    formData.append('plataformaId',plataformaId);
+    formData.append('formatoId',formatoId);
+    let header = new HttpHeaders();
+    header.append('Content-Type','application/json');
+    return this.http.post(environment.server_url+"verificarJuego",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
+  }
   traerCarrito(ids){
     const formData = new FormData();
     formData.append('ids',ids);
@@ -100,8 +113,6 @@ export class HttpService {
   }
   entregarJuego(juego:any,file: any)
   {
-    //var param = {usuario:player.usuario,nombre:player.nombre,apellido:player.apellido,contrasenia:player.contrasenia,email:player.email};
-    //var paramString = JSON.stringify(param);
     const formData = new FormData()
     formData.append('titulo',juego.titulo);
     formData.append('precio',juego.precio);
@@ -119,8 +130,6 @@ export class HttpService {
   }
   actualizarJuego(juego:any,updateFoto: boolean,file: any)
   {
-    //var param = {usuario:player.usuario,nombre:player.nombre,apellido:player.apellido,contrasenia:player.contrasenia,email:player.email};
-    //var paramString = JSON.stringify(param);
     const formData = new FormData()
     
     formData.append('id',juego.id);
@@ -137,7 +146,6 @@ export class HttpService {
     
     return this.http.post(environment.server_url+"actualizarJuego",formData,{headers:header}).toPromise().then(this.extraerDatos).catch(this.manejadorError);
   }
-  
   buscarUsuario(usuario:string,clave:string)
   { 
     const formData = new FormData()
@@ -165,8 +173,6 @@ export class HttpService {
   }
   entregarCliente(user:any)
   {
-    //var param = {usuario:player.usuario,nombre:player.nombre,apellido:player.apellido,contrasenia:player.contrasenia,email:player.email};
-    //var paramString = JSON.stringify(param);
     const formData = new FormData()
     formData.append('usuario',user.usuario);
     formData.append('apellido',user.apellido);

@@ -84,6 +84,7 @@ $app->group('/ecomerce', function () {
       $this->post('/guardarJuego', \JuegoApi::class . ':CargarUno')->add(\MWparaCORS::class . ':HabilitarCORS8080');
       $this->post('/actualizarJuego', \JuegoApi::class . ':ActualizarUno')->add(\MWparaCORS::class . ':HabilitarCORS8080');
       $this->post('/traerCarrito', \JuegoApi::class . ':TraerCarrito')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+      $this->post('/verificarJuego', \JuegoApi::class . ':ValidarJuego')->add(\MWparaCORS::class . ':HabilitarCORS8080');
      
       $this->post('/login',\UsuarioApi::class . ':TraerUno')->add(\MWparaCORS::class . ':HabilitarCORSTodos');
       $this->post('/guardarCliente', \UsuarioApi::class . ':CargarUno')->add(\MWparaCORS::class . ':HabilitarCORS8080');

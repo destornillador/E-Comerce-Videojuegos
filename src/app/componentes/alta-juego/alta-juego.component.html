@@ -11,7 +11,7 @@
                 <mat-error *ngIf="formErrors.descripcion">{{formErrors.descripcion}}</mat-error>
             </mat-form-field>
             <mat-form-field>
-                <input type="text" matInput [(ngModel)]="precio" placeholder="Ingrese precio del juego" formControlName="precio" required>
+                <input type="number" matInput [(ngModel)]="precio" placeholder="Ingrese precio del juego" formControlName="precio" required>
                 <mat-error *ngIf="formErrors.precio">{{formErrors.precio}}</mat-error>
             </mat-form-field>
             <mat-form-field>
@@ -71,7 +71,7 @@
                 <mat-error *ngIf="formErrors.descripcion">{{formErrors.descripcion}}</mat-error>
             </mat-form-field>
             <mat-form-field>
-                <input type="text" matInput [(ngModel)]="datos.juegoActualizar.precio" placeholder="Ingrese precio del juego" formControlName="precio" required>
+                <input type="number" matInput [(ngModel)]="datos.juegoActualizar.precio" placeholder="Ingrese precio del juego" formControlName="precio" required>
                 <mat-error *ngIf="formErrors.precio">{{formErrors.precio}}</mat-error>
             </mat-form-field>
             <mat-form-field>
@@ -93,7 +93,7 @@
                 <mat-error *ngIf="formErrors.formato">{{formErrors.formato}}</mat-error>
             </mat-form-field>
             <mat-form-field>
-                <mat-select placeholder="Seleccione genero" [(ngModel)]="datos.juegoActualizar.generoId" [disabled]="true" formControlName="genero"
+                <mat-select placeholder="Seleccione genero" [(ngModel)]="datos.juegoActualizar.generoId" formControlName="genero"
                 required>
                     <mat-option *ngFor="let genero of generos" [value]="genero.id">
                     {{genero.descripcion}}

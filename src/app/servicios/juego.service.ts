@@ -138,7 +138,6 @@ export class JuegoService {
     );
     return promesa;
   }
-
   public AltaABM(data:any): Promise<boolean> {
     
     let result: Promise<boolean> = this.miHttp.altaAbm(data)
@@ -151,6 +150,18 @@ export class JuegoService {
       .catch(error => {
         console.log(error);
         return false;
+      });
+    return result;
+  }
+  public verificar(id,titulo,plataforma,formato,plataformaId,formatoId):Promise<any>
+  {
+    let result: Promise<string> = this.miHttp.verificarJuego(id,titulo,plataforma,formato,plataformaId,formatoId)
+      .then(datos => {
+        return datos.respuesta;
+      })
+      .catch(error => {
+        console.log(error);
+        return "Error en el servicio";
       });
     return result;
   }

@@ -141,39 +141,71 @@ export class AltaJuegoComponent implements OnInit {
 
   registrar(){
     if (this.registroForm.invalid) return alert("Complete los campos requeridos");
-    
-    var juego = new Juego(0,this.titulo,this.precio,this.plataforma,this.genero,this.formato,this.stock,"","","","",this.descripcion);
+    if (this.file == null) return alert("Debe ingresar una foto de portada");
+    if (this.file.type != "image/png" && this.file.type != "image/jpeg") return alert("El tipo de portada debe ser 'jpg' o 'png'");
+    var plataforma = this.plataformas.find(x => x.id == this.plataforma);
+    var formato = this.formatos.find(x => x.id == this.formato);
+    this.juegoService.verificar(0,this.titulo,plataforma.descripcion,formato.descripcion,this.plataforma,this.formato)
+    .then((resultado) => {
 
-    this.juegoService.RegistrarJuego(juego,this.file)
-    .then((datos) => {
-      if (datos == true) 
-        alert("Se registro con exito");
-      else
-        alert("No se pudo cargar el juego");
-      })
-      .catch(
-      (noSeEncontroUsuario) => { alert("Error en el sistema"); }
-      );
+        if(!resultado.exito){
+          return alert(resultado.mensaje);
+        }
+
+        var juego = new Juego(0,this.titulo,this.precio,this.plataforma,this.genero,this.formato,this.stock,"","","","",this.descripcion);
+        this.juegoService.RegistrarJuego(juego,this.file)
+        .then((datos) => {
+          if (datos == true){ 
+            alert("Se registro con exito");
+            this.dialogref.close();
+          }
+          else
+            alert("No se pudo cargar el juego");
+          })
+        .catch(
+        (noSeEncontroUsuario) => { alert("Error en el sistema"); }
+        );
+    })
+    .catch(
+    (noSeEncontroUsuario) => { alert("Error en el sistema"); }
+    );
   }
   
   Actualizar(){
     if (this.registroForm.invalid) return alert("Complete los campos requeridos");
-    
-    var juego = new Juego(this.datos.juegoActualizar.id,this.datos.juegoActualizar.titulo,this.datos.juegoActualizar.precio,
-    this.datos.juegoActualizar.plataformaId,this.datos.juegoActualizar.generoId,this.datos.juegoActualizar.formatoId,this.datos.juegoActualizar.stock
-    ,"","","",this.datos.juegoActualizar.foto,this.datos.juegoActualizar.descripcion);
+    if(this.updateFoto){
+      if (this.file == null) return alert("Debe ingresar una foto de portada");
+      if (this.file.type != "image/png" && this.file.type != "image/jpeg") return alert("El tipo de portada debe ser 'jpg' o 'png'");
+    }
+    var plataforma = this.plataformas.find(x => x.id == this.datos.juegoActualizar.plataformaId);
+    var formato = this.formatos.find(x => x.id == this.datos.juegoActualizar.formatoId);
 
-    this.juegoService.ActualizarJuego(juego,this.updateFoto,this.file)
-    .then((datos) => {
-      if (datos == true) 
-      {
-        alert("Se actualizo con exito");
-        this.dialogref.close();
+    this.juegoService.verificar(this.datos.juegoActualizar.id,this.datos.juegoActualizar.titulo,plataforma.descripcion,formato.descripcion,
+    this.datos.juegoActualizar.plataformaId,this.datos.juegoActualizar.formatoId)
+    .then((resultado) => {
+      if(!resultado.exito){
+          return alert(resultado.mensaje);
       }
+
+      var juego = new Juego(this.datos.juegoActualizar.id,this.datos.juegoActualizar.titulo,this.datos.juegoActualizar.precio,
+      this.datos.juegoActualizar.plataformaId,this.datos.juegoActualizar.generoId,this.datos.juegoActualizar.formatoId,this.datos.juegoActualizar.stock
+      ,"","","",this.datos.juegoActualizar.foto,this.datos.juegoActualizar.descripcion);
+
+      this.juegoService.ActualizarJuego(juego,this.updateFoto,this.file)
+      .then((datos) => {
+        if (datos == true) 
+        {
+          alert("Se actualizo con exito");
+          this.dialogref.close();
+        }
       })
       .catch(
       (noSeEncontroUsuario) => { alert("Error en el sistema"); }
       );
+    })
+    .catch(
+    (noSeEncontroUsuario) => { alert("Error en el sistema"); }
+    );
   }
 
   public dropped(files: NgxFileDropEntry[]) {

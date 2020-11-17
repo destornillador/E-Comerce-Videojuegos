@@ -125,7 +125,7 @@ export class PrincipalComponent implements OnInit {
     const dialogRef = this.dialog.open(AltaJuegoComponent, dialogConfig);
     
     dialogRef.afterClosed().subscribe(res => {
-      console.log(res);
+      this.buscar();
     })
   }
 

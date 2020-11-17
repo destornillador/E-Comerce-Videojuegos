@@ -99,5 +99,35 @@ class JuegoApi extends Juego
     
        return $response->withJson($actualizar, 200);
    }
+
+   public function ValidarJuego($request, $response, $args) 
+    {
+        $objDelaRespuesta= new stdclass();
+        
+        $ArrayDeParametros = $request->getParsedBody();
+        $id= $ArrayDeParametros["id"];
+        $titulo= $ArrayDeParametros["titulo"];
+        $formato= $ArrayDeParametros["formato"];
+        $plataforma= $ArrayDeParametros["plataforma"];
+        $formatoId= $ArrayDeParametros["formatoId"];
+        $plataformaId= $ArrayDeParametros["plataformaId"];
+        
+        $Juego = Juego::BuscarJuego($id,$titulo,$formatoId,$plataformaId);
+        
+        $resultado = new stdClass();
+            
+        if($Juego == []){
+            $resultado->exito = true;
+            $objDelaRespuesta->respuesta= $resultado;
+        }
+        else{
+            $resultado->exito = false;
+            $resultado->mensaje = "El juego ".$titulo. " para la ".$plataforma." en formato ".$formato. " ya fue creado";
+            $objDelaRespuesta->respuesta= $resultado;
+        }
+
+        $newresponse = $response->withJson($objDelaRespuesta, 200);  
+        return $newresponse;
+    }
 }
 ?>

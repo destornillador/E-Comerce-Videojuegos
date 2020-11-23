@@ -98,11 +98,11 @@ class Juego
         
         $consulta->execute();		
     }
-    public static function ActualizarJuegoParametros($id,$titulo,$precio,$descripcion,$stock)
+    public static function ActualizarJuegoParametros($id,$titulo,$precio,$descripcion,$stock,$foto)
     {
                $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
                $consulta =$objetoAccesoDato->RetornarConsulta("Update juego
-               set titulo = '$titulo', descripcion = '$descripcion', precio = {$precio}, stock = {$stock}
+               set titulo = '$titulo', descripcion = '$descripcion', precio = {$precio}, stock = {$stock}, foto = '$foto'
                where id = {$id}");
                
                $consulta->execute();		

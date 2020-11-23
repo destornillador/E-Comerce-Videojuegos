@@ -1,4 +1,9 @@
 FROM php:7.3.21-buster AS php-build
+# Install package dependencies
+RUN apt-get update && \
+    apt-get install -y \
+		git \
+		unzip
 # Install Composer
 ENV COMPOSER_VERSION="1.10.10"
 RUN curl -sS https://getcomposer.org/installer | \

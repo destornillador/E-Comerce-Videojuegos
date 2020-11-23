@@ -62,15 +62,12 @@ class JuegoApi extends Juego
        $ultimoId =  Juego::InsertarJuegoParametros($titulo,$precio,$plataformaId,$generoId,$formatoId,$descripcion,$stock,"");
        $objDelaRespuesta->respuesta=$ultimoId;
 
+       //$destino="../../src/assets/portadas/";
+	   $destino="../../assets/portadas/";
        $archivos = $request->getUploadedFiles();
-       $fotoNombre = "../../assets/portadas/".$ultimoId.".jpg";
-       $archivos['foto']->moveTo($fotoNombre);
+       $fotoNombre = $ultimoId.".jpg";
+       $archivos['foto']->moveTo($destino.$fotoNombre);
 
-       if (isset($_ENV['CLOUDINARY_URL'])) {
-         $fotoNombreCloudinary='production/'.$ultimoId;
-         $resCloudinary = \Cloudinary\Uploader::upload($fotoNombre,array("public_id" => $fotoNombreCloudinary));
-         $fotoNombre = $resCloudinary["secure_url"];
-       }
        Juego::GuardarFoto($fotoNombre,$ultimoId);
        
        return $response->withJson($objDelaRespuesta, 200);
@@ -80,27 +77,23 @@ class JuegoApi extends Juego
        $objDelaRespuesta= new stdclass();
        
        $ArrayDeParametros = $request->getParsedBody();
+       
        $id = $ArrayDeParametros["id"];
        $titulo = $ArrayDeParametros["titulo"];
        $precio = floatval($ArrayDeParametros["precio"]);
        $descripcion = $ArrayDeParametros["descripcion"];
        $stock = $ArrayDeParametros["stock"];
+       $fotoNombre = $ArrayDeParametros["fotoNombre"];
        $actualizar = $ArrayDeParametros["cambiarFoto"];
-
-       $fotoNombre = "../../assets/portadas/".$id.".jpg";    
-
+       
        if($actualizar == "Si"){
         //$destino="../../src/assets/portadas/";
+        $destino="../../assets/portadas/";
 		$archivos = $request->getUploadedFiles();
-        $archivos['foto']->moveTo($fotoNombre);
-
-         if (isset($_ENV['CLOUDINARY_URL'])) {
-           $fotoNombreCloudinary='production/'.$id;
-           $resCloudinary = \Cloudinary\Uploader::upload($fotoNombre,array("public_id" => $fotoNombreCloudinary, "overwrite" => true));
-           $fotoNombre = $resCloudinary["secure_url"];
-         }
+        $archivos['foto']->moveTo($destino.$fotoNombre);
        }
-       $consulta =  Juego::ActualizarJuegoParametros($id,$titulo,$precio,$descripcion,$stock,$fotoNombre);
+
+       $consulta =  Juego::ActualizarJuegoParametros($id,$titulo,$precio,$descripcion,$stock);
        $objDelaRespuesta->respuesta=$consulta;
        
     
